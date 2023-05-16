@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+  }
+  
+  .login-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #e5ecf6;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .radio-btn-container {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .radio-btn {
+    margin-right: 10px;
+  }
+  
+  .radio-btn-label {
+    margin-right: 10px;
+  }
+  
+  .input {
+    width: 200px;
+    height: 30px;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    align-self: center;
+    caret-color: rgb(128, 198, 255);
+  }
+  
+  .button {
+    width: 100px;
+    height: 30px;
+    background-color: #b2c7e5;
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    margin-bottom: 10px;
+  }
+  
+  .link-container {
+    margin-top: 10px;
+    align-content: center;
+  }
+  
+  .link-container a {
+    margin: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  

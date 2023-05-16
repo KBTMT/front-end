@@ -1,5 +1,42 @@
 .header {
-    background-color: #e5ecf6;
-    padding: 20px 0;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.menu-bar {
+  margin-top: 20px;
+}
+
+.menu-bar ul {
+  list-style: none;
+  display: flex;
+}
+
+.menu-bar ul li {
+  margin-right: 10px;
+}
+
+.menu-bar ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+}
+
+.user-auth {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-auth a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #333;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
@@ -72,13 +73,13 @@ const Login = () => {
           로그인
         </button>
         <div className="link-container">
-          <a href="#" onClick={handleForgetUserId}>
+          <Link to="/findid" onClick={handleForgetUserId}>
             아이디 찾기
-          </a>
+          </Link>
           <span> | </span>
-          <a href="#" onClick={handleForgetUserPassword}>
+          <Link to="/findpassword" onClick={handleForgetUserPassword}>
             비밀번호 찾기
-          </a>
+          </Link>
         </div>
       </div>
     </div>

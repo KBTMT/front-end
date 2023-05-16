@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterGeneral.css";
 
+
 const RegisterGeneral = () => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");

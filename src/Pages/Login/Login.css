@@ -31,12 +31,13 @@
   .input {
     width: 200px;
     height: 30px;
-    color: #ffffff;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 10px;
     align-self: center;
+    caret-color: rgb(128, 198, 255);
   }
   
   .button {

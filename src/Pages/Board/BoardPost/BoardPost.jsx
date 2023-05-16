@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
+const BoardPost = (props) => {
 
-const BoardPost = () => {
-
-    const params = useParams();
-    const postId = params.postId;
+    const params  = useParams();
+    console.log(params);
+    console.log(props);
 
     return (
         <div>
-            {postId} 
+            {params.boardSeq}
         </div>
     );
 };

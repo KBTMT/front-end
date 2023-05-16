@@ -1,60 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 import "./BoardMain.css";
 
 const BoardMain = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "게시물 1",
-      content: "첫 번째 게시물입니다.",
-      author: "작성자1",
-      date: "2023-05-15"
-    },
-    {
-      id: 2,
-      title: "게시물 2",
-      content: "두 번째 게시물입니다.",
-      author: "작성자2",
-      date: "2023-05-16"
-    },
-    {
-      id: 3,
-      title: "게시물 3",
-      content: "세 번째 게시물입니다.",
-      author: "작성자3",
-      date: "2023-05-17"
-    },
-    {
-      id: 4,
-      title: "게시물 4",
-      content: "네 번째 게시물입니다.",
-      author: "작성자4",
-      date: "2023-05-18"
-    },
-    {
-      id: 5,
-      title: "게시물 5",
-      content: "다섯 번째 게시물입니다.",
-      author: "작성자5",
-      date: "2023-05-19"
-    },
-    {
-      id: 6,
-      title: "게시물 5",
-      content: "다섯 번째 게시물입니다.",
-      author: "작성자5",
-      date: "2023-05-19"
-    },
-    {
-      id: 7,
-      title: "게시물 5",
-      content: "다섯 번째 게시물입니다.",
-      author: "작성자5",
-      date: "2023-05-19"
-    }
-  ]);
+  const [posts,setPost] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8899/board')
+      .then(response => setPost(response.data))
+      .catch(error => console.log(error))
+  }, []);
+  // const [posts, setPosts] = useState([
+  //   {
+  //     id: 1,
+  //     title: "게시물 1",
+  //     content: "첫 번째 게시물입니다.",
+  //     author: "작성자1",
+  //     date: "2023-05-15"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "게시물 2",
+  //     content: "두 번째 게시물입니다.",
+  //     author: "작성자2",
+  //     date: "2023-05-16"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "게시물 3",
+  //     content: "세 번째 게시물입니다.",
+  //     author: "작성자3",
+  //     date: "2023-05-17"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "게시물 4",
+  //     content: "네 번째 게시물입니다.",
+  //     author: "작성자4",
+  //     date: "2023-05-18"
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "게시물 5",
+  //     content: "다섯 번째 게시물입니다.",
+  //     author: "작성자5",
+  //     date: "2023-05-19"
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "게시물 5",
+  //     content: "다섯 번째 게시물입니다.",
+  //     author: "작성자5",
+  //     date: "2023-05-19"
+  //   },
+  //   {
+  //     id: 7,
+  //     title: "게시물 5",
+  //     content: "다섯 번째 게시물입니다.",
+  //     author: "작성자5",
+  //     date: "2023-05-19"
+  //   }
+  // ]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchType, setSearchType] = useState("title"); // 검색 조건 상태
@@ -94,7 +101,7 @@ const BoardMain = () => {
   const navigate = useNavigate();
 
   const navigateToWrite = () => {
-    navigate("/boardwrite");
+    navigate("/board/register");
   };
 
   // 페이지 번호 버튼들
@@ -131,11 +138,17 @@ const BoardMain = () => {
         </div>
         <div className="post-list">
           {currentPosts.map((post) => (
-            <Link to={`/boardpost/${post.id}`} key={post.id} style={{ textDecoration: 'none' }}> 
+            // <Link to={`/board/detail/${post.boardSeq}`} key={post.boardSeq} style={{ textDecoration: 'none' }}>
+            <Link to={{pathname :`/board/detail/${post.boardSeq}`,
+            state : {
+
+            } 
+          }}>  
               <div className="post-thumbnail">
                 <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <p>작성일: {post.date}</p>
+                {/* <h2>{post.boardSeq}</h2> */}
+                <p>{post.boardContent}</p>
+                {/* <p>작성일: {post.boardDate}</p> */}
               </div>
             </Link>
           ))}

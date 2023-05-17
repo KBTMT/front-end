@@ -26,7 +26,7 @@ const Login = () => {
   const handleForgetUserPassword = () => {};
 
   return (
-    <div className="container">
+    <div className="container1">
       <div className="login-box">
         <h2>로그인</h2>
         <div className="radio-btn-container">
@@ -60,14 +60,14 @@ const Login = () => {
           placeholder="아이디"
           value={userId}
           onChange={handleUserId}
-          className="input"
+          className="inputLogin"
         />
         <input
           type="password"
           placeholder="비밀번호"
           value={userPassword}
           onChange={handleUserPassword}
-          className="input"
+          className="inputLogin"
         />
         <button onClick={handleLogin} className="button">
           로그인

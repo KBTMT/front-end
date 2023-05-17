@@ -1,62 +1,87 @@
 import React, { useState } from "react";
 import "./RegisterGeneral.css";
-
+import axios from "axios";
 
 const RegisterGeneral = () => {
-  const [userId, setUserId] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [confirmUserPassword, setConfirmUserPassword] = useState("");
+  // const [userId, setUserId] = useState("");
+  // const [userPassword, setUserPassword] = useState("");
+  // const [confirmUserPassword, setConfirmUserPassword] = useState("");
+  // const [userNickname, setUserNickname] = useState("");
+  // const [userEmail, setUserEmail] = useState("");
+  // const [userBirthday, setUserBirthday] = useState("");
+  // const [userJob, setUserJob] = useState("");
+  // const [userConsumptionInterest, setUserConsumptionInterest] = useState([]);
+  // const [userFinancialInterest, setUserFinancialInterest] = useState("");
+
+  const [generalId, setGeneralId] = useState("");
+  const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const [userNickname, setUserNickname] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userBirthday, setUserBirthday] = useState("");
-  const [userJob, setUserJob] = useState("");
-  const [userConsumptionInterest, setUserConsumptionInterest] = useState([]);
-  const [userFinancialInterest, setUserFinancialInterest] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [job, setJob] = useState("");
+  const [consumptionCat1, setConsumptionCat1] = useState("");
+  const [financeCat, setFinanceCat] = useState("");
 
-  const handleUserIdChange = (e) => {
-    setUserId(e.target.value);
+
+  const handleGeneralIdChange = (e) => {
+    setGeneralId(e.target.value);
   };
 
-  const handleUserPasswordChange = (e) => {
-    setUserPassword(e.target.value);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
-
-  const handleUserConfirmPasswordChange = (e) => {
-    setConfirmUserPassword(e.target.value);
-  };
+  // const handleConfirmPasswordChange = (e) => {
+  //   setConfirmPassword(e.target.value);
+  // };
 
   const handleUserNicknameChange = (e) => {
     setUserNickname(e.target.value);
   };
 
-  const handleUserEmailChange = (e) => {
-    setUserEmail(e.target.value);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
-  const handleUserBirthdayChange = (e) => {
-    setUserBirthday(e.target.value);
+  const handleBirthDateChange = (e) => {
+    setBirthDate(e.target.value);
   };
 
-  const handleUserJobChange = (e) => {
-    setUserJob(e.target.value);
+  const handleJobChange = (e) => {
+    setJob(e.target.value);
   };
-  const handleUserConsumptionInterestChange = (e) => {
-    const selectedOptions = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setUserConsumptionInterest(selectedOptions);
+  const handleConsumptionCat1Change = (e) => {
+    // const selectedOptions = Array.from(
+    //   e.target.selectedOptions,
+    //   (option) => option.value
+    // );
+    setConsumptionCat1(e.target.value);
   };
-  const handleUserFinancialInterestChange = (e) => {
-    setUserFinancialInterest(e.target.value);
+  const handleFinanceCatChange = (e) => {
+    setFinanceCat(e.target.value);
   };
 
-  const handleUserIdDuplicationCheck = () => {};
+  // const handleUserIdDuplicationCheck = () => { };
 
-  const handleUserNicknameDuplicationCheck = () => {};
+  // const handleUserNicknameDuplicationCheck = () => { };
 
   const handleSubmit = (e) => {
-    e.preventDeefault();
+    // e.preventDefault();
+    setUserNickname("");
+    setGeneralId("");
+    setPassword("");
+    setEmail("");
+    setBirthDate("");
+    setJob("");
+    setConsumptionCat1("");
+    setFinanceCat("");
+    axios.post('http://localhost:8899/register/generalUser', { generalId, password, userNickname, email, birthDate, job, consumptionCat1, financeCat })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -68,11 +93,11 @@ const RegisterGeneral = () => {
           <input
             type="text"
             id="userId"
-            value={userId}
-            onChange={handleUserIdChange}
+            value={generalId}
+            onChange={handleGeneralIdChange}
             required
           />
-          <button type="button" onClick={handleUserIdDuplicationCheck}>
+          <button type="button" /*onClick={handleUserIdDuplicationCheck}*/>
             중복확인
           </button>
         </div>
@@ -81,8 +106,8 @@ const RegisterGeneral = () => {
           <input
             type="password"
             id="userPassword"
-            value={userPassword}
-            onChange={handleUserPasswordChange}
+            value={password}
+            onChange={handlePasswordChange}
             required
           />
         </div>
@@ -91,9 +116,9 @@ const RegisterGeneral = () => {
           <input
             type="password"
             id="confirmUserPassword"
-            value={confirmUserPassword}
-            onChange={handleUserConfirmPasswordChange}
-            required
+            //value={confirmUserPassword}
+            //onChange={handleUserConfirmPasswordChange}
+            //required
           />
         </div>
         <div className="form-group">
@@ -105,7 +130,7 @@ const RegisterGeneral = () => {
             onChange={handleUserNicknameChange}
             required
           />
-          <button type="button" onClick={handleUserNicknameDuplicationCheck}>
+          <button type="button" /*onClick={handleUserNicknameDuplicationCheck}*/>
             중복확인
           </button>
         </div>
@@ -114,8 +139,8 @@ const RegisterGeneral = () => {
           <input
             type="email"
             id="userEmail"
-            value={userEmail}
-            onChange={handleUserEmailChange}
+            value={email}
+            onChange={handleEmailChange}
             required
           />
         </div>
@@ -125,8 +150,8 @@ const RegisterGeneral = () => {
           <input
             type="date"
             id="userBirthday"
-            value={userBirthday}
-            onChange={handleUserBirthdayChange}
+            value={birthDate}
+            onChange={handleBirthDateChange}
             required
           />
         </div>
@@ -134,8 +159,8 @@ const RegisterGeneral = () => {
           <label htmlFor="userJob"> 직업군 </label>
           <select
             id="userJob"
-            value={userJob}
-            onChange={handleUserJobChange}
+            value={job}
+            onChange={handleJobChange}
             required
           >
             <option value=""> 직업군을 선택하세요 </option>
@@ -169,11 +194,12 @@ const RegisterGeneral = () => {
           {/* checkbox로 하는 게 좋을 것 같기도?? */}
           <select
             id="userConsumptionInterest"
-            multiple
-            value={userConsumptionInterest}
-            onChange={handleUserConsumptionInterestChange}
+            //multiple
+            value={consumptionCat1}
+            onChange={handleConsumptionCat1Change}
             required
           >
+            <option value="0">없음</option>
             <option value="1">식비</option>
             <option value="2">주거비</option>
             <option value="3">교통비</option>
@@ -188,10 +214,11 @@ const RegisterGeneral = () => {
           <label htmlFor="userFinancialInterest">관심 금융분야 </label>
           <select
             id="userFinancialInterest"
-            value={userFinancialInterest}
-            onChange={handleUserFinancialInterestChange}
+            value={financeCat}
+            onChange={handleFinanceCatChange}
             required
           >
+            <option value="0">없음</option>
             <option value="1">금융</option>
             <option value="2">증권</option>
             <option value="3">산업/재계</option>

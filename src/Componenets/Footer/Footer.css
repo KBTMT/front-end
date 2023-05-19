@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "my";
+  src: url("../../../public/fonts/SUITE-Heavy.ttf");
+}
+
+.footer {
+    font-family: 'my', sans-serif;
+    padding: 50px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #e5ecf6;
+  }
+  

@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "my";
+  src: url("../../../public/fonts/SUITE-Heavy.ttf");
+}
+
+
+.header {
+  background-color: #b2c7e5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  font-family: 'my', sans-serif;
+  position: relative;
+}
+
+.logo {
+  margin-right: auto;
+  padding-top: 30px;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  margin-left: auto;
+}
+
+.user-auth {
+  display: flex;
+  margin-right: 10px;
+}
+
+.user-auth a {
+  margin-right: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.menu-bar {
+  background-color: #e5ecf6;
+  padding: 10px;
+  width: 100%;
+}
+
+.menu-bar ul {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between;
+  padding-right : 50px;
+  padding-left : 50px;
+}
+
+.menu-bar li {
+  margin-right: 10px;
+}
+
+.menu-bar a {
+  font-size: 25px;
+  color: #000;
+  text-decoration: none;
+}
+
+/* Hover 스타일 예시 */
+.menu-bar a:hover {
+  color: #fff;
+  background-color: #b2c7e5;
+  border-radius: 4px;
+  /* margin: 10px; */
+  padding: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0; /* 드롭다운 메뉴를 오른쪽 정렬 */
+}
+
+.dropdown-content a {
+  font-size: 15px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.register-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 25px;
+}

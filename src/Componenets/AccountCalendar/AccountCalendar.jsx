@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import './MyCalendar.css';
+import './AccountCalendar.css';
 import axios from 'axios';
 import Modal from "react-modal";
 
+Modal.setAppElement('#root');
 
-const MyCalendar = () => {
+const AccountCalendar = () => {
 
   const renderEventContent = (eventInfo) => {
     return (
@@ -31,17 +32,25 @@ const MyCalendar = () => {
     );
   };
 
-  const [modal2IsOpen, setModal2IsOpen] = useState(false);
+  
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modal2IsOpen, setModal2IsOpen] = useState(false);
+  const [modal3IsOpen, setModal3IsOpen] = useState(false);
+
   const [brand, setBrand] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [discountContent, setDiscountContent] = useState('');
   const [consumptionCat, setConsumptionCat] = useState('');
   const [events, setEvents] = useState([]);
+  //const [eventDetails, setEventDetails] = useState(null);
+
+  const [updatedBrand, setUpdatedBrand] = useState('');
+  const [updatedStartDate, setUpdatedStartDate] = useState('');
+  const [updatedEndDate, setUpdatedEndDate] = useState('');
+  const [updatedDiscountContent, setUpdatedDiscountContent] = useState('');
 
   useEffect(() => { 
-
     axios.get('http://localhost:8899/discount-calendar')
         .then(response => {
             const modifiedData = response.data.map(item => ({
@@ -67,17 +76,32 @@ const handleModalOpen = () => {
 }
 
 const handleModalClose = () => {
-    setModalIsOpen(false);
+  setModalIsOpen(false);
 }
-const handleModalClose2 = () => {
+
+const handleModal2Close = () => {
     setModal2IsOpen(false);
 }
+
+const handleModal3Open = () => {
+
+  setUpdatedBrand(brand);
+  setUpdatedStartDate(startDate);
+  setUpdatedEndDate(endDate);
+  setUpdatedDiscountContent(discountContent);
+  setModal3IsOpen(true);
+};
+
+const handleModal3Close = () => {
+  setModal3IsOpen(false);
+};
 
 const handleModalSubmit = () => {
     const newEvent = {
         title: brand,
         start: startDate,
         end: endDate,
+        category : consumptionCat,
         description: discountContent,
     };
 
@@ -85,6 +109,7 @@ const handleModalSubmit = () => {
     axios.post('http://localhost:8899/discount-calendar/register', { brand, startDate, endDate, discountContent,consumptionCat })
             .then(response => {
                 console.log(response);
+                console.log(startDate)
             })
             .catch(error => {
                 console.error(error);
@@ -92,57 +117,16 @@ const handleModalSubmit = () => {
         setModalIsOpen(false);
 }
 
-  // const events = [
-  //   {
-  //     title: '스타벅스',
-  //     start: '2023-05-19',
-  //     end: '2023-05-25',
-  //     description: '아메리카노 1+1',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 1,
-  //   },
-  //   {
-  //     title: '이벤트 2',
-  //     start: '2023-05-21',
-  //     end: '2023-05-22',
-  //     description: '이벤트 내용',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 2,
-  //   },
-  //   {
-  //     title: '이벤트 3',
-  //     start: '2023-05-24',
-  //     end: '2023-05-28',
-  //     description: '이벤트 내용',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 3,
-  //   },
-  //   {
-  //     title: '이벤트 4',
-  //     start: '2023-05-29',
-  //     end: '2023-05-30',
-  //     description: '이벤트 내용',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 4,
-  //   },
-  //   {
-  //     title: '이벤트 5',
-  //     start: '2023-05-1',
-  //     end: '2023-05-2',
-  //     description: '이벤트 내용',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 5,
-  //   },
-  //   {
-  //     title: '이벤트 6',
-  //     start: '2023-05-11',
-  //     end: '2023-05-12',
-  //     description: '이벤트 내용',
-  //     imageUrl: 'https://www.svgrepo.com/show/513511/star.svg',
-  //     category: 6,
-  //   },
-  // ];
 
+const handleModal3Submit = () => {
+  setBrand(updatedBrand);
+  setStartDate(updatedStartDate);
+  setEndDate(updatedEndDate);
+  setDiscountContent(updatedDiscountContent);
+
+
+  setModal3IsOpen(false); // Close the edit modal after submission
+};
   const categoryColors = {
     1: '#C7A7E8', // 카테고리 1에 대한 색상
     2: '#FF7F50', // 카테고리 2에 대한 색상
@@ -159,20 +143,84 @@ const handleModalSubmit = () => {
     backgroundColor: categoryColors[event.category],
   }));
 
+
+  const handleEventClick = (info) => {
+    const { description, category} = info.event.extendedProps;
+    const {title , start, end } = info.event;
+    setBrand(title);
+    console.log(start);
+    setStartDate(start.toLocaleDateString());
+    setEndDate(end.toLocaleDateString());
+    console.log(description);
+    setDiscountContent(description);
+    setConsumptionCat(category);
+    setModal2IsOpen(true);
+
+    
+  };
+
   return (
     <div className="App">
       <FullCalendar
-        defaultView="dayGridMonth"
+        initialView="dayGridMonth"
         plugins={[dayGridPlugin]}
         events={categorizedEvents}
         eventContent={renderEventContent}
+        eventClick={handleEventClick}
       />
-      <Modal isOpen={modal2IsOpen} onRequestClose={handleModalClose2} className="modal" overlayClassName="overlay">
-                <h1>{brand}</h1>
-                <p>{startDate}</p>
-                <p>{endDate}</p>
-                <p>{consumptionCat}</p>
-                <p>{discountContent}</p>
+      
+      <Modal isOpen={modal2IsOpen} onRequestClose={handleModal2Close} className="modal" overlayClassName="overlay">
+                <h2>브랜드</h2><h1>{brand}</h1>
+                <p> 시작일자 : {startDate}</p>
+                <p> 종료일자 : {endDate}</p>
+                <p> 카테고리 : {consumptionCat}</p>
+                <p>내용 : {discountContent}</p>
+                <button onClick={handleModal3Open}>수정하기</button>
+                <Modal isOpen={modal3IsOpen} onRequestClose={handleModal3Close} className="modal" overlayClassName="overlay">
+                <label className="form-label-calendar">
+                  브랜드 :
+                  <input
+                    type="text"
+                    value={updatedBrand}
+                    className="form-input"
+                    onChange={(e) => setUpdatedBrand(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label className="form-label-calendar">
+                  시작 날짜 :
+                  <input
+                    type="date"
+                    value={updatedStartDate}
+                    className="form-input"
+                    onChange={(e) => setUpdatedStartDate(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label className="form-label-calendar">
+                  끝나는 날짜 :
+                  <input
+                    type="date"
+                    value={updatedEndDate}
+                    className="form-input"
+                    onChange={(e) => setUpdatedEndDate(e.target.value)}
+                  />
+                </label>
+                <br />
+                <label className="form-label-calendar">
+                  내용:
+                  <input
+                    type="textarea"
+                    value={updatedDiscountContent}
+                    className="form-input textarea"
+                    onChange={(e) => setUpdatedDiscountContent(e.target.value)}
+                    style={{ height: '150px', width: '300px' }}
+                  />
+                </label>
+                <br />
+                <button onClick={handleModal3Submit}>수정 완료</button>
+                <button onClick={handleModal3Close}>취소하기</button>
+                </Modal>
       </Modal>
       <button onClick={handleModalOpen} className="add-btn">할인 내역 등록</button>
       <Modal isOpen={modalIsOpen} onRequestClose={handleModalClose} className="modal" overlayClassName="overlay">
@@ -246,8 +294,10 @@ const handleModalSubmit = () => {
                     
                 </form>
             </Modal>
+
+            
     </div>
   );
 };
 
-export default MyCalendar;
+export default AccountCalendar;

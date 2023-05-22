@@ -36,10 +36,10 @@ const Header = () => {
             <Link to="/">할인달력</Link>
           </li>
           <li>
-            <Link to="/acoountbook">가계부</Link>
+            <Link to="/accountbook">가계부</Link>
           </li>
           <li>
-            <Link to="/board">게시판</Link>
+            <Link to="/boardMain">게시판</Link>
           </li>
           <li>
             <Link to="/financialnews">금융소식</Link>

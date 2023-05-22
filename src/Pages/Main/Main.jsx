@@ -1,10 +1,10 @@
 import React from 'react';
-import MyCalendar from "../../Componenets/MyCalendar/MyCalendar"
+import AccountCalendar from "../../Componenets/AccountCalendar/AccountCalendar"
 const Main = () => {
     return (
         <div style={{ width: '70%', margin:'0 auto'}}>
             <h2>✌❤🤞</h2>
-            <MyCalendar />
+            <AccountCalendar />
             
         </div>
     );

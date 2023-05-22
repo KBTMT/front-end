@@ -1,0 +1,66 @@
+.container {
+    max-width: 1500px;
+    margin: 0;
+    padding: 200px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .board-section {
+    margin-top: 20px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .search-bar input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    margin-right: 10px;
+  }
+  
+  .search-bar select {
+    padding: 6px;
+    width: 120px;
+  }
+  
+  .post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .post-thumbnail {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .post-thumbnail h3 {
+    margin-top: 0;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #e5ecf6;
+  }
+
+  

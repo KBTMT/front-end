@@ -3,7 +3,7 @@ import Accountbook from '../../../Componenets/AccountBook/Accountbook';
 
 const AccountBookMain = () => {
     return (
-        <div>
+        <div style={{ width : '70%', margin : '0 auto'}}>
             <Accountbook />
         </div>
     );

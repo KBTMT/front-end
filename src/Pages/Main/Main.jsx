@@ -1,10 +1,11 @@
 import React from 'react';
-import AccountCalendar from "../../Componenets/AccountCalendar/AccountCalendar"
+import DiscountCalendar from "../../Componenets/DiscountCalendar/DiscountCalendar"
+
 const Main = () => {
     return (
         <div style={{ width: '70%', margin:'0 auto'}}>
             <h2>✌❤🤞</h2>
-            <AccountCalendar />
+            <DiscountCalendar />
             
         </div>
     );

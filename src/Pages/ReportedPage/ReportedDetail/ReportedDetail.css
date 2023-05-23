@@ -1,0 +1,66 @@
+.reported-detail-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px; 
+  }
+  
+  .reported-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .reported-header h1 {
+    margin: 0;
+    text-align: center;
+  }
+  .reported_underline {
+    border: none;
+    border-top: 3px solid rgb(0, 0, 0);
+    margin: 10px 0;
+    width: 80%;
+  }
+  .category-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  .reported-custom-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .reported-custom-list li {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .reported-custom-list li:hover {
+    background-color: #7ebdff;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .reported-delete-button, .reported-pass-button {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #000;
+  }
+  
+   .reported-delete-button:hover, .reported-pass-button:hover{
+    background-color: #7ebdff;
+  }

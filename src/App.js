@@ -18,6 +18,9 @@ import BoardWrite from './Pages/Board/BoardWrite/BoardWrite';
 import BoardPost from './Pages/Board/BoardPost/BoardPost';
 import Financialnews from './Pages/Financialnews/Financialnews';
 
+import Reported from './Pages/ReportedPage/Reported/Reported'
+import ReportedDetail from './Pages/ReportedPage/ReportedDetail/ReportedDetail'
+
 function App() {
   return (
     <div className="App">
@@ -35,13 +38,14 @@ function App() {
           <Route path='/generalMypage/generalMyFinance' element={<GeneralMyFinance />} />
           <Route path='/accountbook' element={<AccountBookMain />} />
 
-
           <Route path='/boardMain' element={<BoardMain />} /> 
           <Route path='/board/register' element={<BoardWrite />} />
           <Route path='/boardpost' element={<BoardPost />} />
 
-
           <Route path='/financialnews' element={<Financialnews />} />
+
+          <Route path='/admin/reported' Component={Reported}/>
+          <Route path='/admin/reported/detail/:reportedSeq/:status/:reportedFlag' Component={ReportedDetail}/>
         </Routes>
         <Footer />
       </Router>

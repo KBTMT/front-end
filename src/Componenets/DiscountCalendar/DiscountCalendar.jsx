@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import './AccountCalendar.css';
+import './DiscountCalendar.css';
 import axios from 'axios';
 import Modal from "react-modal";
 import styled from 'styled-components';

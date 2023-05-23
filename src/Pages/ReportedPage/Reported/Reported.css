@@ -1,0 +1,83 @@
+.reported-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px; 
+  }
+  
+  .reported-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .reported-header h1 {
+    margin: 0;
+    text-align: center;
+  }
+  .reported_underline {
+    border: none;
+    border-top: 3px solid rgb(0, 0, 0);
+    margin: 10px 0;
+    width: 80%;
+  }
+  .category-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  .reported-custom-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .reported_get_detail{
+    text-decoration: none;
+    color: #000000; /* 원하는 색상으로 변경하세요 */
+  }
+  .reported-custom-list li {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .reported-custom-list li:hover {
+    background-color: #7ebdff;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+  .pagination button.active {
+    background-color: #e5ecf6;
+  }
+  .reported-button {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reported-button:hover {
+    background-color: #7ebdff;
+  }
+  
+  .reported-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #7ebdff;
+  }

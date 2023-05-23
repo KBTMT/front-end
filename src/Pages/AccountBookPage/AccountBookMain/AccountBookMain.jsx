@@ -1,11 +1,10 @@
 import React from 'react';
-import MyCalendar from '../../../Componenets/AccountCalendar/AccountCalendar'
-import FinancialCalendar from '../../../Componenets/FinancialCalendar/FinancialCalendar';
+import Accountbook from '../../../Componenets/AccountBook/Accountbook';
 
 const AccountBookMain = () => {
     return (
-        <div style={{ width: '70%', margin:'0 auto'}}>
-            <FinancialCalendar />
+        <div>
+            <Accountbook />
         </div>
     );
 };

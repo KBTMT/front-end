@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -66,6 +66,24 @@ const BoardWrite = () => {
     const file = event.target.files[0];
     setImage(URL.createObjectURL(file));
   };
+
+  const [user, setUser] = useState([]);
+  const [generalId, setGeneralId] = useState([]);
+  const [userNickname, setUserNickname] = useState([]);
+  useEffect(() => {
+    const userFromSession = JSON.parse(sessionStorage.getItem('vo'));
+    if (userFromSession) {
+      setUser(userFromSession);
+      setGeneralId(userFromSession.generalId);
+      setUserNickname(userFromSession.setUserNickname);
+      
+    }
+  }, []);
+
+  // 수정 필요
+  // useEffect(() => {
+  //   fetchData();
+  // }, [user]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

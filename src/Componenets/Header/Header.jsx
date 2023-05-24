@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import "./Header.css";
 import { useNavigate, Link } from "react-router-dom";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+  useEffect(() => {
+    const userFromSession = JSON.parse(sessionStorage.getItem('vo'));
+    if (JSON.parse(sessionStorage.getItem('vo'))) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <header className="header">
@@ -18,16 +25,24 @@ const Header = () => {
       </div>
       <div className="right-section">
         <div className="user-auth">
-          <Link to="/login">로그인</Link>
-          <div className="dropdown">
-            <button onClick={toggleDropdown} className="register-btn">회원가입</button>
-            {showDropdown && (
-              <div className="dropdown-content">
-                <Link to="/registerGeneral">일반회원 회원가입</Link>
-                <Link to="/registerBusiness">사업자회원 회원가입</Link>
+        {isLoggedIn ? (
+            <>
+              <Link to="/logout">로그아웃</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">로그인</Link>
+              <div className="dropdown">
+                <button onClick={toggleDropdown} className="register-btn">회원가입</button>
+                {showDropdown && (
+                  <div className="dropdown-content">
+                    <Link to="/registerGeneral">일반회원 회원가입</Link>
+                    <Link to="/registerBusiness">사업자회원 회원가입</Link>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
       <nav className="menu-bar">

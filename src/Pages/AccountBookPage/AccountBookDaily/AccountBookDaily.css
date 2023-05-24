@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "my";
+    src: url("../../../../public/fonts/SUITE-Heavy.ttf");
+}
+
+.accountBook-daily-container{
+    display: flex;
+}
+
+.accountBook-daily{
+    font-family: 'my';
+    border-radius: 50px;
+    background-color: rgb(255, 249, 242);
+    padding : 50px 30px 30px 30px;
+}
+
+.accountBook-daily-item-container{
+    margin : 0 auto;
+    border-radius: 20px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.miniAccountBook-container{
+    margin: 10px;
+    background-color:  rgb(255, 249, 242);
+    border-radius: 50px;
+    padding : 30px;
+}

@@ -36,13 +36,13 @@ const Header = () => {
             <Link to="/">할인달력</Link>
           </li>
           <li>
-            <Link to="/accountbook">가계부</Link>
+            <Link to="/accountbook"><img src={require("../../img/accountbook.png")} style={{ width : '50px'}}/>가계부</Link>
           </li>
           <li>
             <Link to="/boardMain">게시판</Link>
           </li>
           <li>
-            <Link to="/financialnews">금융소식</Link>
+            <Link to="/financialnews"><img src={require("../../img/news.png")} style={{ width : '50px'}}/>금융소식 </Link>
           </li>
           <li>
             <Link to="/generalmypage">마이페이지</Link>

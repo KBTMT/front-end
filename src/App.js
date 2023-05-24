@@ -13,6 +13,8 @@ import GeneralMyFinance from './Pages/Mypage/GeneralMyFinance/GeneralMyFinance'
 import BusinessMypage from './Pages/Mypage/BusinessMypage/BusinessMypage';
 
 import AccountBookMain from './Pages/AccountBookPage/AccountBookMain/AccountBookMain'
+import AccountBookDaily from './Pages/AccountBookPage/AccountBookDaily/AccountBookDaily'
+
 import BoardMain from './Pages/Board/BoardMain/BoardMain';
 import BoardWrite from './Pages/Board/BoardWrite/BoardWrite';
 import BoardPost from './Pages/Board/BoardPost/BoardPost';
@@ -36,8 +38,10 @@ function App() {
 
           <Route path="/login" element={<LoginPage />}/>
           <Route path='/generalMypage/generalMyFinance' element={<GeneralMyFinance />} />
-          <Route path='/accountbook' element={<AccountBookMain />} />
 
+          <Route path='/accountbook' element={<AccountBookMain />} />
+          <Route path='/accountbook/details/:formattedDate' element={<AccountBookDaily />} />
+    
           <Route path='/boardMain' element={<BoardMain />} /> 
           <Route path='/board/register' element={<BoardWrite />} />
           <Route path='/boardpost' element={<BoardPost />} />

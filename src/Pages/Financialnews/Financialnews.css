@@ -1,72 +1,95 @@
 .news-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+  max-width: 1500px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: #E5ECF6;
+  border-radius: 10px;
+}
+
+.news-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.news-header h2 {
+  margin: 0;
+}
+
+.category-menu {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+
+.category-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.category-menu ul li {
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease-in, background 0.2s ease-in;
+}
+
+.category-menu ul li:hover {
+  color: black;
+  background: #E5ECF6;
+  cursor: pointer;
   
-  .news-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .news-header h2 {
-    margin: 0;
-  }
-  
-  .category-menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .category-menu ul li {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .news-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-  }
-  
-  .news-item {
-    background-color: #f5f5f5;
-    padding: 20px;
-  }
-  
-  .news-item img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  .news-item h3 {
-    margin: 0;
-  }
-  
-  .news-item p {
-    margin: 10px 0;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .pagination button {
-    border: none;
-    background-color: transparent;
-    color: #000;
-    cursor: pointer;
-    padding: 5px 10px;
-  }
-  
-  .pagination button.active {
-    background-color: #e5ecf6;
-  }
-  
+}
+
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.news-item {
+  background-color: #ffffff;
+  padding: 20px;
+  flex-direction: column;
+  margin-bottom: 20px;
+  text-align: left;
+  border-radius: 10px;
+}
+
+
+.news-item h3 {
+  margin: 0;
+}
+
+.news-item p {
+  margin: 10px 0;
+}
+
+.news-item p2 {
+  margin: 20px 0px 10px 0px;
+  float: right;
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  border: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.pagination button.active {
+  background-color: #e5ecf6;
+}

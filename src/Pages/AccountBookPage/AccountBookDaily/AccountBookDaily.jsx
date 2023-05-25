@@ -181,10 +181,12 @@ const AccountBookDaily = () => {
 
 
     const handleItemSelect = (item) => {
-        if (item.memo === null) {
-            setSelectedItem(item);
-            setShowEditModal(true);
-          }
+        // if (item.memo === null) {
+        //     setSelectedItem(item);
+        //     setShowEditModal(true);
+        //   }
+        setSelectedItem(item);
+        setShowEditModal(true);
     }
     
     const handleAddMemo = () => {

@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
 import "./BoardMain.css";
+import BoardHeadline from "../../../Componenets/Board/BoardHeadline";
+import BoardAdmin from "../../../Componenets/Board/BoardAdmin";
 
 const BoardMain = () => {
   const [posts,setPost] = useState([]);
@@ -85,6 +87,7 @@ const BoardMain = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(currentPosts);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -122,7 +125,23 @@ const BoardMain = () => {
 
   return (
     <div className="container">
+      <BoardAdmin title={`공지사항`}/>
       <div className="board-section">
+        <div className="board-top">
+        <button onClick={navigateToWrite}>글쓰기</button>
+        </div>
+
+        {currentPosts.map((post) => ( 
+            // <Link to={`/board/detail/${post.boardSeq}`} key={post.boardSeq} style={{ textDecoration: 'none' }}>
+          //   <Link to={{pathname :`/board/detail/${post.boardSeq}`,
+          //   state : {
+              // 링크 라우터? 네비게이션?
+          //   } 
+          // }}>  
+              <BoardHeadline key={post.boardSeq} title={post.title} boardDate={post.boardDate} userNickname={post.userNickname}/>
+
+            // </Link>
+          ))}
         <div className="search-bar">
           <select value={searchType} onChange={handleSearchTypeChange}>
             <option value="title">제목</option>
@@ -136,25 +155,8 @@ const BoardMain = () => {
             placeholder="검색"
           />
         </div>
-        <div className="post-list">
-          {currentPosts.map((post) => (
-            // <Link to={`/board/detail/${post.boardSeq}`} key={post.boardSeq} style={{ textDecoration: 'none' }}>
-            <Link to={{pathname :`/board/detail/${post.boardSeq}`,
-            state : {
-
-            } 
-          }}>  
-              <div className="post-thumbnail">
-                <h3>{post.title}</h3>
-                {/* <h2>{post.boardSeq}</h2> */}
-                <p>{post.boardContent}</p>
-                {/* <p>작성일: {post.boardDate}</p> */}
-              </div>
-            </Link>
-          ))}
-        </div>
         <div className="pagination">{pagination}</div>
-        <button onClick={navigateToWrite}>글쓰기</button>
+        
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from "react";
 import "./Header.css";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -16,6 +17,19 @@ const Header = () => {
     }
   }, []);
 
+  const logout = () => {
+    axios.post('http://localhost:8899/logout')
+      .then(response => {
+        alert("로그아웃 됨")
+        sessionStorage.removeItem('vo');
+        alert("세션 삭제됨")
+        document.location.href = '/'
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   return (
     <header className="header">
       <div className="logo">
@@ -27,7 +41,7 @@ const Header = () => {
         <div className="user-auth">
         {isLoggedIn ? (
             <>
-              <Link to="/logout">로그아웃</Link>
+              <Link onClick={logout}>로그아웃</Link>
             </>
           ) : (
             <>

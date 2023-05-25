@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의합니다.
 const ProfileContainer = styled.div`
@@ -46,7 +47,9 @@ const Profile = ({ name, profileImage }) => {
       <Greeting>{`${name}님 환영합니다.`}</Greeting>
       <ButtonContainer>
         <Button >내 정보</Button>
-        <Button>내 활동</Button>
+        <Link to="/generalmypage/myboard">
+          <Button>내 활동</Button>
+        </Link>
         <Button>내 금융</Button>
       </ButtonContainer>
     </ProfileContainer>

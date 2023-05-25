@@ -3,6 +3,12 @@ import "./Financialnews.css";
 
 const Financialnews = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
+  // const [newsList, setNewsList] = useState([]);
+  // useEffect(() => {
+  //   axios.get('http://localhost:8899/finance')
+  //     .then(response => setNewsList(response.data))
+  //     .catch(error => console.log(error))
+  // }, []);
   const [newsList, setNewsList] = useState([
     {
       id: 1,
@@ -164,13 +170,21 @@ const Financialnews = () => {
       <div className="news-list">
         {currentNews.map((news) => (
           <div className="news-item" key={news.id}>
-            <img src={news.image} alt={news.title} />
             <h3>{news.title}</h3>
             <p>{news.content}</p>
             <p>{news.category}</p>
             <p>작성일: {news.date}</p>
           </div>
         ))}
+        {/* {currentNews.map((news) => (
+          <div className="news-item" key={news.id}>
+            <img src={news.image} alt={news.title} />
+            <h3>{news.title}</h3>
+            <p>{news.content}</p>
+            <p>{news.category}</p>
+            <p>작성일: {news.date}</p>
+          </div>
+        ))} */}
       </div>
       <div className="pagination">{pagination}</div>
     </div>

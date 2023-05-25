@@ -23,6 +23,8 @@ import Financialnews from './Pages/Financialnews/Financialnews';
 import Reported from './Pages/ReportedPage/Reported/Reported'
 import ReportedDetail from './Pages/ReportedPage/ReportedDetail/ReportedDetail'
 
+import MyActivity from './Pages/MyActivity/MyActivity'
+
 function App() {
   return (
     <div className="App">
@@ -50,6 +52,7 @@ function App() {
 
           <Route path='/admin/reported' Component={Reported}/>
           <Route path='/admin/reported/detail/:reportedSeq/:status/:reportedFlag' Component={ReportedDetail}/>
+          <Route path="/generalmypage/myboard" element={<MyActivity />} />
         </Routes>
         <Footer />
       </Router>

@@ -3,6 +3,7 @@ import Profile from '../../../Componenets/Profile/Profile'
 import GeneralMyInfo from '../../../Componenets/MyInfo/GeneralMyInfo/GeneralMyInfo'
 import styled from 'styled-components';
 
+
 // const GeneralMypage = () => {
 //     return (
 //         <div>

@@ -1,0 +1,42 @@
+.post-container {
+    width: 1500px;
+    margin: 30px auto;
+    padding: 40px;
+    background-color: #E5ECF6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    border-radius: 10px;
+}
+    
+
+.post-read {
+    width: 1500px;
+    height: auto;
+    background-color: #ffffff;
+    padding : 20px;
+    border-radius: 10px;
+}
+
+.post-info {
+    display: flex;
+    gap:15px;
+    justify-content: flex-end;
+}
+
+.post-content {
+    display: flex;
+    gap:15px;
+    justify-content: flex-start;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.post-comment {
+    display: flex;
+    
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}

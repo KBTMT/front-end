@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import './AccountBookDaily.css' 
 import MiniAccountbook from '../../../Componenets/MiniAccountBook/MiniAccountBook';
+import Select from 'react-dropdown-select';
 
 const StyledButton = styled.button`
   background-color: #f5f5f5;
@@ -156,6 +157,29 @@ const AccountBookDaily = () => {
         return element;
     };
 
+    const getTextByEmoji = (emoji) => {
+        let text;
+        switch (emoji) {
+        case 0:
+            text = " ";
+            break;
+        case 1:
+            text = "😀";
+            break;
+        case 2:
+            text = "😑";
+            break;
+        case 3:
+            text = "😥";
+            break;
+        default :
+            text = " ";    
+            break;
+        }   
+        return text;
+    };
+
+
     const handleItemSelect = (item) => {
         if (item.memo === null) {
             setSelectedItem(item);
@@ -189,6 +213,8 @@ const AccountBookDaily = () => {
 
     }
 
+    
+
     return (
         <div className='accountBook-daily-container'>
             <div className = 'accountBook-daily-calendar' style={{ float : "left", width : "30%"}}>
@@ -214,13 +240,22 @@ const AccountBookDaily = () => {
                             <td className="accountBook-daily-item-accountContent" onClick={()=> handleItemSelect(item)} >{item.accountContent}</td>
                             <td className="accountBook-daily-item-price" onClick={()=> handleItemSelect(item)}>{item.price}</td>
                             <td rowSpan={2} className="accountBook-daily-item-emoji"> {item.emoji !== 0 ? (
-                                item.emoji
-                            ) : ( <AddEmojiButton onClick={handleAddEmoji}> 이모티콘을 추가하세요 </AddEmojiButton> )}
+                                getTextByEmoji(item.emoji)
+                            ) : ( 
+                            // <AddEmojiButton onClick={handleAddEmoji}> 이모티콘을 추가하세요 </AddEmojiButton> 
+                            <Select
+                                placeholder = "이모티콘을 선택하세요        "
+                                options = {[{value : '1', label : '😀'},{value : '2' , label : '😐'},{value : '3' , label : '😥'}]}
+                                onChange={(selectedOption) => console.log(selectedOption)}
+                                color = 'rgb(255, 243, 184)'
+                            />
+                            )}
                             
                             </td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className="accountBook-daily-item-memo"> {item.memo !== null ? (
+                            <td colSpan={2} className="accountBook-daily-item-memo"> 
+                            {item.memo !== null ? (
                                 item.memo
                             ) : ( <AddMemoButton onClick={handleAddMemo} isPositive={item.price > 0} > <img src={require("../../../img/document.png")}  style={{ height : '30px'}}/>메모를 추가하세요.</AddMemoButton> )} 
                             </td>

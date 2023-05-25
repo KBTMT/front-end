@@ -73,15 +73,16 @@ const BoardMain = () => {
 
   // 검색 기능
   const filteredPosts = posts.filter((post) => {
-    if (searchType === "title") {
+    if (post && post.title && searchType === "title") {
       return post.title.toLowerCase().includes(searchQuery.toLowerCase());
-    } else if (searchType === "author") {
+    } else if (post && post.author && searchType === "author") {
       return post.author.toLowerCase().includes(searchQuery.toLowerCase());
-    } else if (searchType === "content") {
+    } else if (post && post.content && searchType === "content") {
       return post.content.toLowerCase().includes(searchQuery.toLowerCase());
     }
     return false;
   });
+
 
   // 현재 페이지에서 보여줄 게시물
   const indexOfLastPost = currentPage * postsPerPage;
@@ -148,6 +149,7 @@ const BoardMain = () => {
             <option value="author">작성자</option>
             <option value="content">내용</option>
           </select>
+
           <input
             type="text"
             value={searchQuery}
@@ -155,6 +157,9 @@ const BoardMain = () => {
             placeholder="검색"
           />
         </div>
+        {/* <div classname = "post-list"> */}
+          
+        {/* </div> */}
         <div className="pagination">{pagination}</div>
         
       </div>

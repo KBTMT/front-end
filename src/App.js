@@ -40,7 +40,7 @@ function App() {
           <Route path='/generalMypage/generalMyFinance' element={<GeneralMyFinance />} />
 
           <Route path='/accountbook' element={<AccountBookMain />} />
-          <Route path='/accountbook/details/:formattedDate' element={<AccountBookDaily />} />
+          <Route path='/accountbook/:formattedDate' element={<AccountBookDaily />} />
     
           <Route path='/boardMain' element={<BoardMain />} /> 
           <Route path='/board/register' element={<BoardWrite />} />

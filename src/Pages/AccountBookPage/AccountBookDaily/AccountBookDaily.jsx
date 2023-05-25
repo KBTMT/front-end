@@ -43,29 +43,70 @@ const AddMemoButton = styled(StyledButton)`
   &:hover {
     background-color: ${(props) => (props.isPositive ? '#1976d2' : '#d32f2f')};
   }
+   z-index: 9999;
 `;
 
 const AddEmojiButton = styled(StyledButton)`
   background-color : 'white';
 `
 
+const EditModal = styled.div`
+//   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+`;
+
+
 const AccountBookDaily = () => {
     
     const { formattedDate } = useParams();
     const [data, setData] = useState([]);
-    const [showModal, setShowModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [showMemoModal, setShowMemoModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [newMemo, setNewMemo] = useState('');
+    const [user, setUser] = useState([]);
+    const [flag, setFlag] = useState(false);
 
-    console.log(formattedDate);
+    useEffect(() => {
+    const userFromSession = JSON.parse(sessionStorage.getItem('vo'));
+    if (userFromSession) {
+      setUser(userFromSession);
+    }
+    setFlag(true);
+    }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, [user]);
+
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8899/account-book/daily/${formattedDate}`,{
+                params: {
+                    generalId : user.generalId
+                }
+            });
+            const data = response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(()=> {
-        axios.get(`http://localhost:8899/account-book/daily/${formattedDate}`)
+        axios.get(`http://localhost:8899/account-book/daily/${user.generalId}/${formattedDate}`)
         .then(response => {
-            
             setData(response.data);
-            console.log(response.data);
         })
         .catch(error => console.log(error))
-    }, [formattedDate]);
+    }, [formattedDate, flag]);
 
     const getColorByPrice = (price) => {
         if (price > 0) {
@@ -78,64 +119,78 @@ const AccountBookDaily = () => {
       };
     
     const getTextByconsumptionCat = (consumptionCat) => {
-        let text = '';
+        let element;
         switch (consumptionCat) {
         case 0:
-            text = '수입'
+            element = <img src={require("../../../img/piggy-bank.png")} style={{ width : '50px'}}/>;
             break;
         case 1:
-            text = '식비';
+            element = <img src={require("../../../img/pizza.png")} style={{ width : '50px'}}/>;            
             break;
         case 2:
-            text = '주거비';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 3:
-            text = '교통비';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 4 :
-            text = '의료/건강';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 5 :
-            text = '생활용품';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 6 :
-            text = '의료/건강';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 7 :
-            text = '여가/문화';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
             break;
         case 8 :
-            text = '의료/건강';
+            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;             
             break;
 
         default :
-            text = "카테고리 미지정";
+            element = <span>카테고리 미지정</span>;
             break;
         }   
-        return text;
+        return element;
     };
+
+    const handleItemSelect = (item) => {
+        if (item.memo === null) {
+            setSelectedItem(item);
+            setShowEditModal(true);
+          }
+    }
     
     const handleAddMemo = () => {
-        setShowModal(true);
+        setShowMemoModal(true);
     }
 
-    const handleCloseModal = () => {
-        setShowModal(false);
+    const handleCloseMemoModal = () => {
+        setShowMemoModal(false);
         setNewMemo('');
     }
 
     const handleSaveMemo = () =>{
-        console.log('save memo : ', newMemo);
-        handleCloseModal();
+        handleCloseMemoModal();
     }
 
+    const handleSaveEdit = () => {
+        handleCloseEditModal();
+    }
+
+    const handleCloseEditModal= () =>{
+        setSelectedItem(null);
+        setShowEditModal(false);
+    }
+   
     const handleAddEmoji = () => {
 
     }
 
     return (
         <div className='accountBook-daily-container'>
-
             <div className = 'accountBook-daily-calendar' style={{ float : "left", width : "30%"}}>
                 <MiniAccountbook />
 
@@ -144,16 +199,20 @@ const AccountBookDaily = () => {
             
 
             {data.map((item, index)=>(
-                <table key={index} className="accountBook-daily-item-container" style={{ backgroundColor: getColorByPrice(item.price) }}>
+                <table 
+                key={index} 
+                className="accountBook-daily-item-container" 
+                style={{ backgroundColor: getColorByPrice(item.price) }} 
+                >
                     <tbody>
-                        <tr>
+                        <tr onClick={()=> handleItemSelect(item)}>
                             <td className="accountBook-daily-item-consumptionCat" >{getTextByconsumptionCat(item.consumptionCat)}</td>
                             <td></td>
                             <td className="accountBook-daily-item-time" >{item.time}</td>
                         </tr>
                         <tr>
-                            <td className="accountBook-daily-item-accountContent">{item.accountContent}</td>
-                            <td className="accountBook-daily-item-price">{item.price}</td>
+                            <td className="accountBook-daily-item-accountContent" onClick={()=> handleItemSelect(item)} >{item.accountContent}</td>
+                            <td className="accountBook-daily-item-price" onClick={()=> handleItemSelect(item)}>{item.price}</td>
                             <td rowSpan={2} className="accountBook-daily-item-emoji"> {item.emoji !== 0 ? (
                                 item.emoji
                             ) : ( <AddEmojiButton onClick={handleAddEmoji}> 이모티콘을 추가하세요 </AddEmojiButton> )}
@@ -169,9 +228,9 @@ const AccountBookDaily = () => {
                     </tbody>
                 </table>
             ))}
-            {showModal && (
+            {showMemoModal && (
                 <div className="modal" style={{ height : "30%", width : "30%"}}>
-                    <div className="modal-content" style={{ height :"70%"}}>
+                    <div className="Memo-modal-content" style={{ height :"70%"}}>
                         <textarea
                         value={newMemo}
                         style={{ height: "100%", width: "80%" }}
@@ -180,15 +239,64 @@ const AccountBookDaily = () => {
                         />
                         <div>
                         <SaveButton  onClick={handleSaveMemo}>메모 저장</SaveButton>
-                        <CloseButton onClick={handleCloseModal}>창 닫기</CloseButton>
+                        <CloseButton onClick={handleCloseMemoModal}>창 닫기</CloseButton>
                         </div>
                     </div>
                 </div>
             )}
-        </div>
+            {showEditModal && (
+                <div className='modal' style={{ height: '50%', width: '50%' }}>
+                    <div className="Edit-modal-content" style={{ height: '90%' }}>
 
+                        {selectedItem && (
+                        <form>
+                            <div>
+                                <label> category :</label>    
+                                <span>{getTextByconsumptionCat(selectedItem.consumptionCat)}</span>
+                            </div>
+                            <div>
+                                <label> 내역: </label>
+                                <input defaultValue={selectedItem.accountContent} />
+                                {/* <span> {selectedItem.accountContent} </span> */}
+                            </div>
+                            <div>
+                                <label> 금액 : </label>
+                                <input defaultValue={selectedItem.price} />
+                                {/* <span> {selectedItem.price} </span> */}
+                            </div>
+                            <div>
+                                <label> 사용처 : </label>
+                                <input defaultValue={selectedItem.accountContent} />
+                                {/* <span> {selectedItem.accountContent} </span> */}
+                            </div>
+                            <div>
+                                <label> 사용 시간 : </label>
+                                <input defaultValue={selectedItem.time} />
+                                {/* <span> {selectedItem.time} </span> */}
+                            </div>
+                            <div>
+                                <label> 메모 : </label>
+                                <input defaultValue={selectedItem.memo} />
+                                {/* <span> {selectedItem.memo} </span> */}
+                            </div>
+                            <div>
+                                <label> EMOJI : </label>
+                                <input defaultValue={selectedItem.emoji} />
+                                {/* <span> {selectedItem.time} </span> */}
+                            </div>
+                            <div>
+                            <SaveButton onClick={handleSaveEdit}>저장</SaveButton>
+                            <CloseButton onClick={handleCloseEditModal}>취소</CloseButton>
+                            </div>
+                        </form>
+                        
+                        )}
+                        
+                    </div>
+                </div>
+            )}
         </div>
-        
+    </div>    
     );
 };
 

@@ -8,6 +8,8 @@ import axios from 'axios';
 const Accountbook = () => {
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState([]);
+  // const [data, setData] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,65 +32,38 @@ const Accountbook = () => {
         }
       });
       const data = response.data;
-      console.log(data);
-      // 데이터 처리 로직
-
+      // console.log(data);
       const modifiedData = response.data.map(item => ({
         title: `수입: ${item.INCOME}`,
         start: item.DATE2,
-        backgroundColor: 'rgba(46, 154, 254, 0.8)'  // 수입 이벤트의 배경 색상
-      })).filter(item => item.title !== '수입: 0'); // 수입이 0인 이벤트 필터링
-
+        backgroundColor: 'rgba(46, 154, 254, 0.8)'  
+      })).filter(item => item.title !== '수입: 0'); 
       const modifiedExpenseData = response.data.map(item => ({
         title: `지출: ${item.EXPENSE}`,
         start: item.DATE2,
-        backgroundColor: 'rgba(252, 126, 126, 0.8)' // 지출 이벤트의 배경 색상
-      })).filter(item => item.title !== '지출: 0'); // 지출이 0인 이벤트 필터링
-
+        backgroundColor: 'rgba(252, 126, 126, 0.8)' 
+      })).filter(item => item.title !== '지출: 0');
       setEvents([...modifiedData, ...modifiedExpenseData]);
       
     } catch (error) {
       console.log(error);
     }
   };
-  
-  // useEffect(() => { 
-  //   axios.get('http://localhost:8899/account-book')
-  //     .then(response => {
-
-
-  //       const modifiedData = response.data.map(item => ({
-  //         title: `수입: ${item.INCOME}`,
-  //         start: item.DATE2,
-  //         backgroundColor: 'rgba(46, 154, 254, 0.8)'  // 수입 이벤트의 배경 색상
-  //       })).filter(item => item.title !== '수입: 0'); // 수입이 0인 이벤트 필터링
-
-  //       const modifiedExpenseData = response.data.map(item => ({
-  //         title: `지출: ${item.EXPENSE}`,
-  //         start: item.DATE2,
-  //         backgroundColor: 'rgba(252, 126, 126, 0.8)' // 지출 이벤트의 배경 색상
-  //       })).filter(item => item.title !== '지출: 0'); // 지출이 0인 이벤트 필터링
-
-  //       setEvents([...modifiedData, ...modifiedExpenseData]);
-  //     })
-  //     .catch(error => console.log(error))
-  // }, []);
 
   const handleEventClick = (eventinfo) => {
     const clickedDate = eventinfo.event.start;
-    console.log(clickedDate);
+    console.log("clickedDate1123 : " + clickedDate);
     const nextDay = new Date(clickedDate);
     nextDay.setDate(nextDay.getDate() + 1);
     const formattedDate = nextDay.toISOString().substring(0, 10);
 
-    navigate(`/accountbook/details/${formattedDate}`);
-
+    navigate(`/accountbook/${formattedDate}`);
   }
 
   return (
     <div>
       <h2>티끌 기록이</h2>
-      <h3>{user.generalId}</h3>
+      <h3>{user.generalId}</h3> 
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

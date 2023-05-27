@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -31,12 +31,14 @@ import Reported from './Pages/ReportedPage/Reported/Reported'
 import ReportedDetail from './Pages/ReportedPage/ReportedDetail/ReportedDetail'
 
 import MyActivity from './Pages/MyActivity/MyActivity'
+import Sidebar from './Componenets/Sidebar/Sidebar';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Header />
+      <BrowserRouter>
+        {/* <Header /> */}
+        <Sidebar>
         <Routes>
 
           <Route path="/" element={<Main />} />
@@ -63,8 +65,8 @@ function App() {
           <Route path='/admin/reported/detail/:reportedSeq/:status/:reportedFlag' Component={ReportedDetail}/>
           <Route path="/generalmypage/myboard" element={<MyActivity />} />
         </Routes>
-        <Footer />
-      </Router>
+        </Sidebar>
+      </BrowserRouter>
 
     </div>
   );

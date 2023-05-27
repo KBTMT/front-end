@@ -173,6 +173,7 @@ const EditProfile = () => {
 
         return confirmAction;
     };
+    
     const deleteConfirm = () => {
         let generalId = sessionData.generalId;
         alert(generalId)

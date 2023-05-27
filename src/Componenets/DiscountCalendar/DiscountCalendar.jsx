@@ -5,6 +5,8 @@ import './DiscountCalendar.css';
 import axios from 'axios';
 import Modal from "react-modal";
 import styled from 'styled-components';
+import 'remixicon/fonts/remixicon.css'
+import { isDateSpansEqual } from '@fullcalendar/core/internal';
 
 const UpdateButton = styled.button`
   background-color: #4caf50;
@@ -96,12 +98,13 @@ const AccountCalendar = () => {
   const [discountContent, setDiscountContent] = useState('');
   const [consumptionCat, setConsumptionCat] = useState('');
   const [events, setEvents] = useState([]);
-
   const [discountUrl, setDiscountUrl] = useState('');
   const [imagePath, setImagePath] = useState('');
   const [calLike, setCalLike] = useState('');
-
-
+  
+  // 리뷰 작성
+  const [score, setScore]= useState();
+  const [userReview, setUserReview] = useState('');
   //const [eventDetails, setEventDetails] = useState(null);
 
   const [updatedBrand, setUpdatedBrand] = useState('');
@@ -109,7 +112,11 @@ const AccountCalendar = () => {
   const [updatedEndDate, setUpdatedEndDate] = useState('');
   const [updatedDiscountContent, setUpdatedDiscountContent] = useState('');
   const [updatedConsumtionCat, setUpdatedConsumtionCat] = useState('');
+  const [generalId, setGeneralId] = useState('');
+  const [user, setUser] = useState([]);
 
+  //리뷰들...
+  const [review, setReview] = useState([]);
   useEffect(() => { 
     axios.get('http://localhost:8899/discount-calendar')
         .then(response => {
@@ -122,14 +129,23 @@ const AccountCalendar = () => {
               category: item.consumptionCat,
               discounturl : item.url,
               imgpath : item.imagePath,
-              calLike : item.calendarLike,
+              calLike : item.calendarLike
             }));
             setEvents(modifiedData);
             console.log(modifiedData);
+            const userFromSession = JSON.parse(sessionStorage.getItem('vo'));
+          if (userFromSession) {
+            setUser(userFromSession);
+            setGeneralId(userFromSession.generalId);
+            console.log("user : ", user);
+            console.log(generalId);
+          }
         })
         .catch(error => console.log(error))
   }, []);
-
+  // useEffect(() => {
+  //   fetchData();
+  // }, [generalId]);
 const handleModalOpen = () => {
     setModalIsOpen(true);
     setBrand('');
@@ -137,6 +153,7 @@ const handleModalOpen = () => {
     setEndDate('');
     setDiscountContent('');
     setConsumptionCat('');
+    setCalLike('');
 }
 
 const handleModalClose = () => {
@@ -174,6 +191,62 @@ const handleModal3Close = () => {
   setModal3IsOpen(false);
 };
 
+
+// 좋아요 버튼 클릭
+const clickLikeButton = () => {
+  axios.put('http://localhost:8899/mypick/like', {discountSeq, generalId})
+  .then(response => {
+    console.log(response);
+    alert(response.data.result);
+    setCalLike(response.data.newLike);
+  })
+  .catch(error => {
+    console.error(error);
+    return;
+  });
+  setMypickFlag(true); 
+};
+
+// 좋아요 취소
+const clickDislikeButton = () => {
+  alert("찜 취소");
+  axios.put('http://localhost:8899/mypick/dislike', {discountSeq, generalId})
+  .then(response => {
+    console.log(response);
+    alert(response.data.result);
+    setCalLike(response.data.newLike);
+  })
+  .catch(error => {
+    console.error(error);
+    return;
+  });
+  setMypickFlag(false); 
+};
+
+
+// 신고
+const clickReport = () => {
+  alert("신고하기");
+};
+
+// 리뷰작성
+const handleModalReviewSubmit = () => {
+  console.log(generalId);
+  console.log(discountSeq);
+  console.log(userReview);
+  console.log(score);
+  axios.put('http://localhost:8899/mypick/register', {generalId, discountSeq, review : userReview, score})
+            .then(response => {
+              alert(response.data);
+              console.log(response);
+            })
+            .catch(error => {
+              alert(error);
+              console.error(error);
+  });
+};
+
+// 달력 정보 등록
 const handleModalSubmit = () => {
     const newEvent = {
         seq : discountSeq,
@@ -207,8 +280,6 @@ const handleModal3Submit = () => {
   setDiscountUrl(discountUrl);
   setImagePath(imagePath);
 
-  console.log(discountUrl);
-   
   const updatedEvent = {
     discountSeq : discountSeq,
     brand: updatedBrand,
@@ -218,9 +289,9 @@ const handleModal3Submit = () => {
     consumptionCat: consumptionCat,
     discountUrl : discountUrl,
     imagePath : imagePath,
-  };
+    calLike : calLike,
 
-  console.log("updatedEvent : " + discountSeq);
+  };
 
   axios.put('http://localhost:8899/discount-calendar/update', updatedEvent)
   .then(response => {
@@ -233,6 +304,8 @@ const handleModal3Submit = () => {
 
   setModal3IsOpen(false);
 };
+
+// 카테고리별 컬러
 const categoryColors = {
   1: '#CDB4DB', // 카테고리 1에 대한 색상 (라일락)
   2: '#FFC3A0', // 카테고리 2에 대한 색상 (프렌치 로즈)
@@ -249,13 +322,15 @@ const categoryColors = {
     backgroundColor: categoryColors[event.category],
   }));
 
+  const [mypickFlag, setMypickFlag] = useState(false);
 
   const handleEventClick = (info) => {
     console.log(info.event);
     console.log(info.event.extendedProps);
 
-    const { description, category, seq, discounturl, imgpath} = info.event.extendedProps;
+    const { description, category, seq, discounturl, imgpath, calLike} = info.event.extendedProps;
     const {title , start, end} = info.event;
+
     setBrand(title);
     console.log(start);
     console.log("discounturl : " + discounturl);
@@ -268,9 +343,26 @@ const categoryColors = {
     setDiscountSeq(seq);
     setDiscountUrl(discounturl);
     setImagePath(imgpath);
+    setCalLike(calLike);
+    // 추가함
+    axios.get(`http://localhost:8899/mypick/isExist/${seq}/${generalId}`)
+      .then(response => {
+        console.log(response);
+        setMypickFlag(response.data);
+      })
+      .catch(error => console.log(error));
+
+      axios.get(`http://localhost:8899/mypick/getReviews/${seq}`)
+      .then(response => {
+        console.log(response.data);
+        setReview(response.data);
+      })
+      .catch(error => console.log(error));
+
     setModal2IsOpen(true);
-  
+    console.log("like " + calLike);
   };
+
 
   return (
     <div className="App">
@@ -281,15 +373,73 @@ const categoryColors = {
         eventContent={renderEventContent}
         eventClick={handleEventClick}
       />
-      
+    
       <Modal isOpen={modal2IsOpen} onRequestClose={handleModal2Close} className="modal" overlayClassName="overlay">
-                <h2>브랜드</h2><h1>{brand}</h1>
+          <div className='calendar_detail_content'>
+            <div className='detailContent'>
+                <h1>{brand}</h1>  
+                  {mypickFlag ? (
+                    <button onClick={clickDislikeButton} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+                      <i className="ri-heart-3-fill ri-3x" style={{ color: 'crimson' }}></i>
+                    </button>
+                  ):(
+                    <button onClick={clickLikeButton} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+                      <i className="ri-heart-3-line ri-3x" style={{ color: 'crimson' }}></i>
+                    </button>
+                  )}
+                : {calLike}
                 <p> 시작일자 : {startDate}</p>
                 <p> 종료일자 : {endDate}</p>
                 <p> 카테고리 : {consumptionCat}</p>
-                <p>내용 : {discountContent}</p>
-                <UpdateButton  onClick={handleModal3Open}>수정하기</UpdateButton >
+                <p> 내용 : {discountContent}</p>
+            </div>
+            <div className='reviewAndScore'>
+              <button className='reportBtn' onClick={clickReport} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}><i class="ri-alarm-warning-fill ri-3x"></i></button>
+              <br/><br/>
+              <div className='reviews'>
+                {review.map((r)=>(
+                  <div className='reviewContent'>
+                    <div className='scoreImage'>
+                    {r.score === 1 && (
+                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                    )}
+                    {r.score === 2 && (
+                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                    )}
+                    {r.score === 3 && (
+                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                    )}
+                    </div>
+                    {r.generalId}님   
+                    <br/>
+                    후기 : {r.review}
+                  </div>
+                ))}
+                <form className='modal-form' onSubmit={handleModalReviewSubmit}>
+                    <label className="form-label-calendar"></label>
+                <div className='registerReview'>
+                    리뷰작성<textarea value={userReview} onChange={(e) => setUserReview(e.target.value)}></textarea>  
+                  <br/>
+                  점수 
+                  <select value={score} onChange={(e) => setScore(e.target.value)}>
+                      <option value="0">선택</option>
+                      <option value="3">만족</option>
+                      <option value="2">보통</option>
+                      <option value="1">나쁨</option>
+                    </select>
+                  <button type="submit" className='form-button' style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+                    리뷰등록
+                  </button>
+                </div>
+                </form>
+              </div>
+            </div>
+            </div>
+              <div className='updatebuttons'>
+                <UpdateButton  onClick={handleModal3Open}>수정하기</UpdateButton>
+                {/* 관리자만 삭제하기 버튼 볼 수 있음 */}
                 <DeleteButton onClick={handleDeleteEvent}> 삭제하기 </DeleteButton>
+              </div>
                 <Modal isOpen={modal3IsOpen} onRequestClose={handleModal3Close} className="modal" overlayClassName="overlay">
                 <label className="form-label-calendar">
                   브랜드 :
@@ -409,7 +559,6 @@ const categoryColors = {
                 </form>
             </Modal>
 
-            
     </div>
   );
 };

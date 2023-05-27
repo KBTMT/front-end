@@ -41,19 +41,25 @@ const Button = styled.button`
 `;
 
 const Profile = ({ name, profileImage }) => {
-  return (
-    <ProfileContainer>
+  const sessionData = JSON.parse(sessionStorage.getItem("vo"));
+  if(sessionData !== null){
+    const name = sessionData.userNickname;
+    return (
+    
+      <ProfileContainer>
       <ProfileImage src={"https://www.svgrepo.com/show/492683/avatar-girl.svg"} alt="Profile Image" />
       <Greeting>{`${name}님 환영합니다.`}</Greeting>
       <ButtonContainer>
-        <Button >내 정보</Button>
         <Link to="/generalmypage/myboard">
           <Button>내 활동</Button>
         </Link>
-        <Button>내 금융</Button>
+        <Link to="/generalmypage/myfinance">
+          <Button>내 금융</Button>
+        </Link>
       </ButtonContainer>
     </ProfileContainer>
-  );
+    );
+  }
 };
 
 export default Profile;

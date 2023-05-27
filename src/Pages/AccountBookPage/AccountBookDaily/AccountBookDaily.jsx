@@ -101,10 +101,27 @@ const AccountBookDaily = () => {
         }
     }
 
+    const [discountCalendarOptions, setDiscountCalendarOptions] = useState([]);
+    const [optionPlaceHolder, setOptionPlaceHolder] = useState("");
+
     useEffect(()=> {
         axios.get(`http://localhost:8899/account-book/daily/${user.generalId}/${formattedDate}`)
         .then(response => {
-            setData(response.data);
+            setData(response.data.accountBookList);
+            console.log(response.data.dicountCalendarList);
+            if(response.data.discountCalendarList.length > 0){
+                const mappedOptions = response.data.discountCalendarList.map((item) => ({
+                    value: item.discountSeq.toString(),
+                    label: item.brand
+                }));
+                setDiscountCalendarOptions(mappedOptions);
+                setOptionPlaceHolder("티끌 기록하기     ");
+            }
+            else{
+                setDiscountCalendarOptions([]);
+                setOptionPlaceHolder("해당 날짜에 티끌이 없어요!        ");
+            }
+            console.log(response.data);
         })
         .catch(error => console.log(error))
     }, [formattedDate, flag]);
@@ -215,17 +232,25 @@ const AccountBookDaily = () => {
 
     }
 
-    
+    const handleTickle = (selectedOption, index) => {
+        const userFromSession = JSON.parse(sessionStorage.getItem('vo'));
+        
+        axios.put(`http://localhost:8899/account-book/daily/used/${data[index].accountBookSeq}`, {discountSeq : selectedOption[0].value, generalId : userFromSession.generalId})
+        .then(response => {
+            console.log(response);
+            alert(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
 
     return (
         <div className='accountBook-daily-container'>
-            <div className = 'accountBook-daily-calendar' style={{ float : "left", width : "30%"}}>
+            <div className = 'accountBook-daily-calendar' style={{ float : "left", width : "450px"}}>
                 <MiniAccountbook />
-
             </div>
             <div className='accountBook-daily' style={{ float : "left", width :"40%", margin : "10px"}}>
-            
-
             {data.map((item, index)=>(
                 <table 
                 key={index} 
@@ -241,7 +266,7 @@ const AccountBookDaily = () => {
                         <tr>
                             <td className="accountBook-daily-item-accountContent" onClick={()=> handleItemSelect(item)} >{item.accountContent}</td>
                             <td className="accountBook-daily-item-price" onClick={()=> handleItemSelect(item)}>{item.price}</td>
-                            <td rowSpan={2} className="accountBook-daily-item-emoji"> {item.emoji !== 0 ? (
+                            <td className="accountBook-daily-item-emoji"> {item.emoji !== 0 ? (
                                 getTextByEmoji(item.emoji)
                             ) : ( 
                             // <AddEmojiButton onClick={handleAddEmoji}> 이모티콘을 추가하세요 </AddEmojiButton> 
@@ -252,7 +277,6 @@ const AccountBookDaily = () => {
                                 color = 'rgb(255, 243, 184)'
                             />
                             )}
-                            
                             </td>
                         </tr>
                         <tr>
@@ -260,6 +284,12 @@ const AccountBookDaily = () => {
                             {item.memo !== null ? (
                                 item.memo
                             ) : ( <AddMemoButton onClick={handleAddMemo} isPositive={item.price > 0} > <img src={require("../../../img/document.png")}  style={{ height : '30px'}}/>메모를 추가하세요.</AddMemoButton> )} 
+                            </td>
+                            <td>
+                                <Select
+                                placeholder = {optionPlaceHolder}
+                                options = {discountCalendarOptions}
+                                onChange={(selectedOption) => handleTickle(selectedOption, index)}  color = 'rgb(255, 243, 184)' />
                             </td>
                         </tr>
                     </tbody>

@@ -13,57 +13,6 @@ const BoardMain = () => {
       .then(response => setPost(response.data))
       .catch(error => console.log(error))
   }, []);
-  // const [posts, setPosts] = useState([
-  //   {
-  //     id: 1,
-  //     title: "게시물 1",
-  //     content: "첫 번째 게시물입니다.",
-  //     author: "작성자1",
-  //     date: "2023-05-15"
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "게시물 2",
-  //     content: "두 번째 게시물입니다.",
-  //     author: "작성자2",
-  //     date: "2023-05-16"
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "게시물 3",
-  //     content: "세 번째 게시물입니다.",
-  //     author: "작성자3",
-  //     date: "2023-05-17"
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "게시물 4",
-  //     content: "네 번째 게시물입니다.",
-  //     author: "작성자4",
-  //     date: "2023-05-18"
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "게시물 5",
-  //     content: "다섯 번째 게시물입니다.",
-  //     author: "작성자5",
-  //     date: "2023-05-19"
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "게시물 5",
-  //     content: "다섯 번째 게시물입니다.",
-  //     author: "작성자5",
-  //     date: "2023-05-19"
-  //   },
-  //   {
-  //     id: 7,
-  //     title: "게시물 5",
-  //     content: "다섯 번째 게시물입니다.",
-  //     author: "작성자5",
-  //     date: "2023-05-19"
-  //   }
-  // ]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchType, setSearchType] = useState("title"); // 검색 조건 상태
@@ -126,6 +75,8 @@ const BoardMain = () => {
 
   return (
     <div className="container">
+      <img src={require('../../../img/tiggle_write_bar.png')} style={ {width : "500px"}} />
+
       <BoardAdmin title={`공지사항`}/>
       <div className="board-section">
         <div className="board-top">

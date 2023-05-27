@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Reported.css";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Reported = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [dataList, setDataList] = useState([]);
 
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     axios.get('http://localhost:8899/admin/reported')
-      .then(response =>{ 
+      .then(response => {
         setDataList(response.data);
       })
       .catch(error => console.log(error))
@@ -33,6 +36,17 @@ const Reported = () => {
     setCurrentPage(prevPage => prevPage + 1);
   };
 
+  const goDetail = (target) => {
+    navigate(`/admin/reported/detail/${target.targetSeq}/${target.status}/${target.reportedFlag}`, {
+      state: {
+        targetSeq: target.targetSeq,
+        status: target.status,
+        reportedFlag: target.reportedFlag
+      }
+    })
+    alert(target.targetSeq)
+  }
+
   const totalPages = Math.ceil(dataList.length / itemsPerPage);
 
   return (
@@ -43,11 +57,12 @@ const Reported = () => {
       <hr className="reported_underline"></hr>
       <ul className="reported-custom-list">
         {getCurrentItems().map((item, index) => (
-          <Link to={`/admin/reported/detail/${item.reportedSeq}/${item.status}/${item.reportedFlag}`} className="reported_get_detail" style={ { textDecoration : 'none' 
-          }}> 
-          {/* <li key={index}>{index}   :   {JSON.stringify(item)}</li> */}
-          <li key={index}>reportedSeq : {item.reportedSeq}, status : {item.status}, flag : {item.reportedFlag} </li>
-          </Link>
+          <text onClick={() => goDetail(item)}
+            className="reported_get_detail"
+            style={{ textDecoration: 'none' }}>
+            {/* <li key={index}>{index}   :   {JSON.stringify(item)}</li> */}
+            <li key={index}>targetSeq : {item.targetSeq}, status : {item.status}, flag : {item.reportedFlag} </li>
+          </text>
         ))}
       </ul>
       <hr className="reported_underline"></hr>

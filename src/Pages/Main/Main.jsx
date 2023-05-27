@@ -3,8 +3,8 @@ import DiscountCalendar from "../../Componenets/DiscountCalendar/DiscountCalenda
 
 const Main = () => {
     return (
-        <div style={{ width: '70%', margin:'0 auto'}}>
-            <h2>✌❤🤞</h2>
+        <div>
+            <img src={require('../../img/tiggle_info_bar.png')} style={ {width : "500px"}} />
             <DiscountCalendar />
             
         </div>

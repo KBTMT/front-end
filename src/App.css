@@ -13,6 +13,7 @@
   }
 }
 
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,6 +23,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App {
+  background-color: aliceblue;
 }
 
 .App-link {
@@ -35,4 +40,66 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+@font-face {
+  font-family: "welcome";
+  src: url("../public/fonts/웰컴체\ Regular.ttf");
+}
+
+@font-face {
+  font-family: "GabaiaHeuldot";
+  src: url("../public/fonts/GabiaHeuldot.ttf");
+}
+
+@font-face {
+  font-family: "Gwangyang";
+  src : url("../public/fonts/Gwangyang\ Touching.ttf");  
+}
+
+@font-face {
+  font-family : "Kotra";
+  src : url("../public/fonts/KOTRA\ HOPE.ttf");
+}
+
+@font-face {
+  font-family: "Nanum";
+  src: url("../public/fonts/NanumSquareNeo-bRg.ttf");
+}
+
+@font-face {
+  font-family: "suite";
+  src: url("../public/fonts/SUITE-Light.ttf");
+}
+
+/* @font-face {
+  font-family: "kangwonall";
+  src : url("../public/fonts/강원교육모두\ Light.ttf");
+}
+
+@font-face{
+  font-family : "kangwons";
+  src : url("../public/fonts/강원교육새음.ttf");
+} */
+
+/* @font-face{
+  font-family: "kangwont";
+  src : url("../public/fonts/강원교육튼튼.ttf");
+} */
+
+@font-face{
+  font-family: "kangwonh";
+  src : url("../public/fonts/강원교육현옥샘.ttf");
+}
+
+@font-face{
+  font-family: "omu";
+  src : url("../public/fonts/오뮤_다예쁨체.ttf");
+}
+
+@font-face{
+  font-family : "beomsuk";
+  src : url("../public/fonts/휴먼범석체.ttf");
+
 }

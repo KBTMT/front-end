@@ -75,7 +75,7 @@ const BoardMain = () => {
 
   return (
     <div className="container">
-      <img src={require('../../../img/tiggle_write_bar.png')} style={ {width : "500px"}} />
+      <img src={require('../../../img/tickle_board_bar.png')} style={ {width : "500px"}} />
 
       <BoardAdmin title={`공지사항`}/>
       <div className="board-section">

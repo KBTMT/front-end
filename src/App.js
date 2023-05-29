@@ -27,10 +27,10 @@ import BoardWrite from './Pages/Board/BoardWrite/BoardWrite';
 import BoardPost from './Pages/Board/BoardPost/BoardPost';
 import Financialnews from './Pages/Financialnews/Financialnews';
 
-import Reported from './Pages/ReportedPage/Reported/Reported'
-import ReportedDetail from './Pages/ReportedPage/ReportedDetail/ReportedDetail'
+import Reported from './Pages/ReportedPage/Reported/Reported';
+import ReportedDetail from './Pages/ReportedPage/ReportedDetail/ReportedDetail';
 
-import MyActivity from './Pages/MyActivity/MyActivity'
+import MyActivity from './Pages/MyActivity/MyActivity';
 import Sidebar from './Componenets/Sidebar/Sidebar';
 
 function App() {
@@ -48,22 +48,23 @@ function App() {
           <Route path="/businessMypage" element={<BusinessMypage />}/>
 
           <Route path="/login" element={<LoginPage />}/>
-          <Route path='/generalMypage/generalMyFinance' element={<GeneralMyFinance />} />
           <Route path='/findId' element={<FindId />}/>
           <Route path='/findPassword' element={<FindPassword />}/>
-          
           <Route path='/accountbook' element={<AccountBookMain />} />
           <Route path='/accountbook/:formattedDate' element={<AccountBookDaily />} />
     
           <Route path='/boardMain' element={<BoardMain />} /> 
           <Route path='/board/register' element={<BoardWrite />} />
-          <Route path='/boardpost' element={<BoardPost />} />
+          {/* <Route path='/boardpost' element={<BoardPost />} /> */}
+          <Route path='/board/boardpost/:boardSeq' Component={BoardPost} />
 
           <Route path='/financialnews' element={<Financialnews />} />
 
           <Route path='/admin/reported' Component={Reported}/>
           <Route path='/admin/reported/detail/:reportedSeq/:status/:reportedFlag' Component={ReportedDetail}/>
-          <Route path="/generalmypage/myboard" element={<MyActivity />} />
+
+          <Route path="/generalMypage/myActivity" element={<MyActivity />} />
+          <Route path='/generalMypage/myFinance' element={<GeneralMyFinance/>}/>
         </Routes>
         </Sidebar>
       </BrowserRouter>

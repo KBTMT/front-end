@@ -1,72 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Financialnews.css";
+import axios from 'axios';
 
 const Financialnews = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
-  // const [newsList, setNewsList] = useState([]);
-  // useEffect(() => {
-  //   axios.get('http://localhost:8899/finance')
-  //     .then(response => setNewsList(response.data))
-  //     .catch(error => console.log(error))
-  // }, []);
-  const [newsList, setNewsList] = useState([
-    {
-      id: 1,
-      title: "뉴스 제목 1",
-      content: "짧은 내용 1",
-      image: "이미지 URL 1",
-      date: "2023-05-15",
-      category: "카테고리 1"
-    },
-    {
-      id: 2,
-      title: "뉴스 제목 2",
-      content: "짧은 내용 2",
-      image: "이미지 URL 2",
-      date: "2023-05-16",
-      category: "카테고리 2"
-    },
-    {
-      id: 3,
-      title: "뉴스 제목 3",
-      content: "짧은 내용 3",
-      image: "이미지 URL 3",
-      date: "2023-05-16",
-      category: "산업/재계"
-    },
-    {
-      id: 4,
-      title: "뉴스 제목 4",
-      content: "짧은 내용 4",
-      image: "이미지 URL 4",
-      date: "2023-05-16",
-      category: "카테고리 4"
-    },
-    {
-      id: 5,
-      title: "뉴스 제목 5 ",
-      content: "짧은 내용 2",
-      image: "이미지 URL 2",
-      date: "2023-05-16",
-      category: "카테고리 2"
-    },
-    {
-      id: 6,
-      title: "뉴스 제목 6",
-      content: "짧은 내용 6",
-      image: "이미지 URL 6",
-      date: "2023-05-16",
-      category: "금융"
-    },
-    {
-      id: 7,
-      title: "뉴스 제목 7",
-      content: "짧은 내용 7",
-      image: "이미지 URL 7",
-      date: "2023-05-16",
-      category: "금융"
-    }
-  ]);
+  const [newsList, setNewsList] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8899/finance')
+      .then(response => setNewsList(response.data))
+      .catch(error => console.log(error))
+  }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const newsPerPage = 6;
@@ -92,6 +35,16 @@ const Financialnews = () => {
   const pageNumbers = Math.ceil(filteredNews.length / newsPerPage);
   const pagination = [];
 
+  const category = {
+    1 : '금융',
+    2 : '증권',
+    3 : '산업/재계',
+    4 : '중기/벤처',
+    5 : '부동산',
+    6 : '글로벌 경제',
+    7 : '생활경제',
+    8 : '경제 일반'
+  }
   for (let i = 1; i <= pageNumbers; i++) {
     pagination.push(
       <button
@@ -103,88 +56,22 @@ const Financialnews = () => {
       </button>
     );
   }
-
+  const handleNewsClick = (url) => {
+    window.open(url, "_blank");
+  };
   return (
     <div className="news-container">
       <div className="news-header">
-        <h2>뉴스</h2>
-        <div className="category-menu">
-          <ul>
-            <li
-              className={selectedCategory === "" ? "active" : ""}
-              onClick={() => handleCategorySelect("")}
-            >
-              전체
-            </li>
-            <li
-              className={selectedCategory === "금융" ? "active" : ""}
-              onClick={() => handleCategorySelect("금융")}
-            >
-              금융
-            </li>
-            <li
-              className={selectedCategory === "증권" ? "active" : ""}
-              onClick={() => handleCategorySelect("증권")}
-            >
-              증권
-            </li>
-            <li
-              className={selectedCategory === "산업/재계" ? "active" : ""}
-              onClick={() => handleCategorySelect("산업/재계")}
-            >
-              산업/재계
-            </li>
-            <li
-              className={selectedCategory === "중기/벤처" ? "active" : ""}
-              onClick={() => handleCategorySelect("중기/벤처")}
-            >
-              중기/벤처
-            </li>
-            <li
-              className={selectedCategory === "부동산" ? "active" : ""}
-              onClick={() => handleCategorySelect("부동산")}
-            >
-              부동산
-            </li>
-            <li
-              className={selectedCategory === "글로벌경제" ? "active" : ""}
-              onClick={() => handleCategorySelect("글로벌경제")}
-            >
-              글로벌경제
-            </li>
-            <li
-              className={selectedCategory === "생활경제" ? "active" : ""}
-              onClick={() => handleCategorySelect("생활경제")}
-            >
-              생활경제
-            </li>
-            <li
-              className={selectedCategory === "경제 일반" ? "active" : ""}
-              onClick={() => handleCategorySelect("경제 일반")}
-            >
-              경제 일반
-            </li>
-          </ul>
-        </div>
+        <h1>오늘의 경제 키워드</h1>
       </div>
       <div className="news-list">
         {currentNews.map((news) => (
-          <div className="news-item" key={news.id}>
-            <h3>{news.title}</h3>
-            <p>{news.content}</p>
-            <p>{news.category}</p>
-            <p>작성일: {news.date}</p>
+          <div className="news-item" key={news.id} onClick={() => handleNewsClick(news.financialUrl)}>
+            <h2>{news.financialKeyword}</h2>
+            <p>{category[news.financeCat]}</p>
+            <p>{news.financialSummary}</p>
           </div>
         ))}
-        {/* {currentNews.map((news) => (
-          <div className="news-item" key={news.id}>
-            <img src={news.image} alt={news.title} />
-            <h3>{news.title}</h3>
-            <p>{news.content}</p>
-            <p>{news.category}</p>
-            <p>작성일: {news.date}</p>
-          </div>
-        ))} */}
       </div>
       <div className="pagination">{pagination}</div>
     </div>

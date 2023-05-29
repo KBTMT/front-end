@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import styled from 'styled-components';
 import 'remixicon/fonts/remixicon.css'
 import { isDateSpansEqual } from '@fullcalendar/core/internal';
-
+import Select from 'react-dropdown-select';
 const UpdateButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -115,6 +115,11 @@ const AccountCalendar = () => {
   const [generalId, setGeneralId] = useState('');
   const [user, setUser] = useState([]);
 
+
+  //카테고리 선택
+  const [selectedCategory, setSelectedCategory] = useState(''); // 선택된 카테고리 상태
+  const [selectedEvents, setSelectedEvents] = useState([]);
+
   //리뷰들...
   const [review, setReview] = useState([]);
   useEffect(() => { 
@@ -137,15 +142,13 @@ const AccountCalendar = () => {
           if (userFromSession) {
             setUser(userFromSession);
             setGeneralId(userFromSession.generalId);
-            console.log("user : ", user);
-            console.log(generalId);
+            // setSelectedCategory(userFromSession.consumptionCat);
+            // console.log(selectedCategory);
           }
         })
         .catch(error => console.log(error))
   }, []);
-  // useEffect(() => {
-  //   fetchData();
-  // }, [generalId]);
+  
 const handleModalOpen = () => {
     setModalIsOpen(true);
     setBrand('');
@@ -175,8 +178,8 @@ const handleDeleteEvent = () => {
     console.error(error);
   });
 };
-const handleModal3Open = () => {
 
+const handleModal3Open = () => {
   setUpdatedBrand(brand);
   setUpdatedStartDate(startDate);
   setUpdatedEndDate(endDate);
@@ -224,10 +227,26 @@ const clickDislikeButton = () => {
 };
 
 
-// 신고
-const clickReport = () => {
-  alert("신고하기");
+ // 신고
+ const clickReport = () => {
+  // alert("신고하기");
+  const targetSeq = discountSeq;
+  const status = 0;
+  const reportedFlag = 0;
+
+axios.post('http://localhost:8899/admin/register/report', { targetSeq, status, reportedFlag })
+.then(response => {
+  console.log(response);
+  alert("신고되었습니다")
+})
+.catch(error => {
+  alert(targetSeq)
+  alert(status)
+  alert("에러 발생")
+  console.error(error);
+});
 };
+
 
 // 리뷰작성
 const handleModalReviewSubmit = () => {
@@ -317,7 +336,7 @@ const categoryColors = {
   8: '#D7DBDD', // 카테고리 8에 대한 색상 (라이트 그레이)
 };
 
-  const categorizedEvents = events.map((event) => ({
+  const categorizedEvents = selectedEvents.map((event) => ({
     ...event,
     backgroundColor: categoryColors[event.category],
   }));
@@ -363,15 +382,39 @@ const categoryColors = {
     console.log("like " + calLike);
   };
 
+  const isAdmin = sessionStorage.getItem("admin");
 
+
+  
+  const handleCatOptions = (selectedOption) => {
+    console.log(selectedOption[0].value);
+    setSelectedCategory(selectedOption[0].value);
+  }
+  useEffect(() => {
+    if (selectedCategory === '0') {
+      setSelectedEvents(events);
+    } else {
+      const filteredEvents = events.filter(event => event.category === selectedCategory);
+      setSelectedEvents(filteredEvents);
+    }
+  }, [selectedCategory, events]);
   return (
-    <div className="App">
+    <div className="App" style={{ padding : "50px", borderRadius : "10px", backgroundColor : "white", boxShadow : "5px 5px 5px rgb(216, 216, 216)" }}>
+      <Select 
+      placeholder = "카테고리를 선택하세요     "
+      options={[{value : '0', label : '전체'},{value : '1', label : '식비'},{value : '2', label : '주거비'},
+      {value : '3', label : '교통비'},{value : '4', label : '의료/건강'},{value : '5', label : '생활용품'},
+      {value : '6', label : '여가/문화'},{value : '7', label : '패션/미용'},{value : '8', label : '기타'}
+    ]}
+      onChange={(selectedOption) => handleCatOptions(selectedOption)}/>
+      <br/>
       <FullCalendar
         initialView="dayGridMonth"
         plugins={[dayGridPlugin]}
         events={categorizedEvents}
         eventContent={renderEventContent}
         eventClick={handleEventClick}
+        className="calendar"
       />
     
       <Modal isOpen={modal2IsOpen} onRequestClose={handleModal2Close} className="modal" overlayClassName="overlay">
@@ -438,7 +481,7 @@ const categoryColors = {
               <div className='updatebuttons'>
                 <UpdateButton  onClick={handleModal3Open}>수정하기</UpdateButton>
                 {/* 관리자만 삭제하기 버튼 볼 수 있음 */}
-                <DeleteButton onClick={handleDeleteEvent}> 삭제하기 </DeleteButton>
+                {isAdmin && <DeleteButton onClick={handleDeleteEvent}> 삭제하기 </DeleteButton>}
               </div>
                 <Modal isOpen={modal3IsOpen} onRequestClose={handleModal3Close} className="modal" overlayClassName="overlay">
                 <label className="form-label-calendar">

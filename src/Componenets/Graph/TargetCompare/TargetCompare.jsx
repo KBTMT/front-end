@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 
 import {
-  BarChart,
+  BarChart, Cell, 
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend
 } from "recharts";
 
+const COLORS = ["#939DFF","#FF979D","#B7FF5B","#FFAB91"];
 
 export default function App(props) {
     const [sumIncome, setSumIncome] = useState(0);
@@ -25,37 +24,33 @@ export default function App(props) {
       }
     }, [props.data]);
   
-    // const data = [
-    //   { name: '4월 총 수익', value: sumIncome },
-    //   { name: '4월 총 지출', value: sumConsume },
-    //   { name: '목표 저축액', value: targetSaving }
-    // ];
-  
     const data = [
-        {name : 'aaa', 수익 : sumIncome, 지출 : sumConsume, '목표 저축액' : targetSaving}
+      { name: '총 수익', value: sumIncome },
+      { name: '총 지출', value: sumConsume },
+      { name: '목표 저축액', value: targetSaving },
+      { name: '가용금액', value : sumIncome-sumConsume-targetSaving }
     ];
+  
     return (
-      <div>
+      // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width : '30%' }}>
+     <div>
         <h1>지출 목표 금액과 비교</h1>
         <BarChart
-          width={400}
+          width={500}
           height={500}
           data={data}
           margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
+            left: 20
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="수익" fill="#8884d8" />
-          <Bar dataKey="지출" fill="#FF80AB" />
-          <Bar dataKey="목표 저축액" fill="#00B8D4" />
+          <Tooltip formatter={(value, name, props) => [value+"원"]}/>
+          <Bar dataKey="value" fill="#8884d8" >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}  />
+        ))}
+          </Bar>
         </BarChart>
       </div>
     );

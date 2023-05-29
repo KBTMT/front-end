@@ -102,6 +102,9 @@ const Login = () => {
         } else {
           alert("로그인 성공");
           sessionStorage.setItem("vo", JSON.stringify(response.data));
+          if (generalId === "adminId") {
+            sessionStorage.setItem("admin", true);
+          }
           document.location.href = '/'
         }
       })
@@ -118,7 +121,7 @@ const Login = () => {
     <Container>
       <LoginBox onSubmit={handleLogin} action="/">
         <Title>로그인</Title>
-        <RadioContainer>
+        {/* <RadioContainer>
           <RadioLabel>
             <RadioInput
               type="radio"
@@ -141,7 +144,7 @@ const Login = () => {
             />
             사업자 회원
           </RadioLabel>
-        </RadioContainer>
+        </RadioContainer> */}
         <Input
           type="text"
           placeholder="아이디"

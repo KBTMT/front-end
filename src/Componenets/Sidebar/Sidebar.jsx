@@ -29,9 +29,9 @@ const Sidebar = ({children}) => {
     const logout = () => {
         axios.post('http://localhost:8899/logout')
           .then(response => {
-            alert("로그아웃 됨")
+            alert("로그아웃 성공!")
             sessionStorage.removeItem('vo');
-            alert("세션 삭제됨")
+            //alert("세션 삭제됨")
             document.location.href = '/'
         })
         .catch(error => {
@@ -59,17 +59,17 @@ const Sidebar = ({children}) => {
         {
             path:"/boardMain",
             name:"게시판",
-            icon: <FaRegChartBar />
+            icon: <img src={require('../../img/tickle_board.png')} style={ {width : "50px"}} />
         },
         {
             path:"/financialnews",
             name:"금융뉴스",
-            icon: <FaCommentAlt />
+            icon: <img src={require('../../img/tickle_news.png')} style={ {width : "50px"}} />
         },
         {
             path:"/generalMypage",
             name:"마이페이지",
-            icon: <FaShoppingBag />
+            icon: <img src={require('../../img/tickle_mypage.png')} style={ {width : "50px"}} />
         },
         
     ]
@@ -88,17 +88,17 @@ const Sidebar = ({children}) => {
         {
             path: "/boardMain",
             name: "게시판",
-            icon: <FaRegChartBar />
+            icon: <img src={require('../../img/tickle_board.png')} style={ {width : "50px"}} />
         },
         {
             path: "/financialnews",
             name: "금융뉴스",
-            icon: <FaCommentAlt />
+            icon: <img src={require('../../img/tickle_news.png')} style={ {width : "50px"}} />
         },
         {
             path: "/admin/reported",
             name: "신고 관리",
-            icon: <FaShoppingBag />
+            icon: <img src={require('../../img/tickle_mypage.png')} style={ {width : "50px"}} />
         }
 
     ]

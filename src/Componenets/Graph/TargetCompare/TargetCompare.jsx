@@ -32,12 +32,11 @@ export default function App(props) {
     ];
   
     return (
-      // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width : '30%' }}>
      <div>
         <h1>지출 목표 금액과 비교</h1>
         <BarChart
-          width={500}
-          height={500}
+          width={300}
+          height={400}
           data={data}
           margin={{
             left: 20

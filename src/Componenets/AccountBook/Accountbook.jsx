@@ -61,9 +61,8 @@ const Accountbook = () => {
   }
 
   return (
-    <div className="AccountBook_container" style={{ width : '1000px'}}>
-      {/* <h2>티끌 기록이</h2>
-      <h3>{user.generalId}</h3>  */}
+    <div className="AccountBook_container" style={{ width : '600px'}}>
+      
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

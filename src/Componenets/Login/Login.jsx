@@ -5,16 +5,16 @@ import axios from 'axios';
 
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 70%;
 `;
 
 const LoginBox = styled.form`
   width: 350px;
   padding: 40px;
-  background-color: #f0f0f0;
+  background-color: #c9f4e2ba;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -22,21 +22,6 @@ const LoginBox = styled.form`
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 20px;
-`;
-
-const RadioContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-`;
-
-const RadioInput = styled.input`
-//   display: none;
-`;
-
-const RadioLabel = styled.label`
-  font-weight: bold;
-  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -121,30 +106,6 @@ const Login = () => {
     <Container>
       <LoginBox onSubmit={handleLogin} action="/">
         <Title>로그인</Title>
-        {/* <RadioContainer>
-          <RadioLabel>
-            <RadioInput
-              type="radio"
-              id="general"
-              name="usertype"
-              value="general"
-              checked={flag === "general"}
-              onChange={handleFlag}
-            />
-            일반 회원
-          </RadioLabel>
-          <RadioLabel>
-            <RadioInput
-              type="radio"
-              id="business"
-              name="usertype"
-              value="business"
-              checked={flag === "business"}
-              onChange={handleFlag}
-            />
-            사업자 회원
-          </RadioLabel>
-        </RadioContainer> */}
         <Input
           type="text"
           placeholder="아이디"

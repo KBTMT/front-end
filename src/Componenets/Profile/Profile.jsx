@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const ProfileContainer = styled.div`
   text-align: center;
    border-radius: 10px; /* 원하는 값을 설정하세요 */
-  background-color: #f0f0f0; /* 배경색 설정 */
+  background-color: #c9f4e2ba; /* 배경색 설정 */
   padding: 20px; /* 내부 여백 설정 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 설정 */
 `;

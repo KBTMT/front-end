@@ -6,7 +6,7 @@ import axios from 'axios';
 const ProfileContainer = styled.div`
   text-align: center;
   border-radius: 10px;
-  background-color: #f0f0f0;
+  background-color: #c9f4e2ba;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -14,7 +14,7 @@ const ProfileContainer = styled.div`
 const Row = styled.div`
   display: flex;
   align-items: center;  
-  justify-content: center;
+  // justify-content: center;
   margin-bottom : 10px;
 `;
 
@@ -205,27 +205,11 @@ const EditProfile = () => {
     return null; // 데이터를 가져오는 동안 로딩 상태를 표시하거나, 다른 처리를 할 수 있습니다.
   }
 
-  // const {
-  //   password,
-  //   userName,
-  //   userNickname,
-  //   email,
-  //   birthDate,
-  //   job,
-  //   consumptionCat1,
-  //   financeCat,
-  //   salary,
-  //   saving,
-  // } = sessionData;
-
-
-
-
   return (
     <ProfileContainer>
-      <row>
-        <label>이름:</label>
-        <input
+      <Row>
+        <Label>이름:</Label>
+        <Input
           type="text"
           // name="name"
           defaultValue={userName}
@@ -233,10 +217,10 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
-      <row>
-        <label>비밀번호:</label>
-        <input
+      </Row>
+      <Row>
+        <Label>비밀번호:</Label>
+        <Input
           type="password"
           //name="password"
           defaultValue={password}
@@ -244,10 +228,10 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
-      <row>
-        <label>닉네임:</label>
-        <input
+      </Row>
+      <Row>
+        <Label>닉네임:</Label>
+        <Input
           type="text"
           //name="nickname"
           defaultValue={userNickname}
@@ -255,10 +239,10 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
-      <row>
-        <label>이메일:</label>
-        <input
+      </Row>
+      <Row>
+        <Label>이메일:</Label>
+        <Input
           type="email"
           //name="email"
           defaultValue={email}
@@ -266,25 +250,27 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
-      <row>
-        <label>생일:</label>
-        <input
+      </Row>
+      <Row>
+        <Label>생일:</Label>
+        <Input
           type='text'
           defaultValue={birthDate}
           required
-          disabled></input>
-        <input
-          type="date"
+          disabled></Input>
+        
+      </Row>
+      <Row>
+      <Label>생일 입력 : </Label>
+      <input
+          type='date'
           id="userBirthday"
           onChange={handleBirthDateChange}
           className="signup-date"
-          disabled={!editing}
-
-        />
-      </row>
-      <row>
-        <label>직업군:</label>
+          disabled={!editing}/>
+      </Row>
+      <Row>
+        <Label>직업군:</Label>
         <select
           id="userJob"
           defaultValue={job}
@@ -317,10 +303,10 @@ const EditProfile = () => {
           <option value="21">금융, 보험</option>
           <option value="22">공공, 복지</option>
         </select>
-      </row>
+      </Row>
 
-      <row>
-        <label>관심 소비분야: </label>
+      <Row>
+        <Label>관심 소비분야: </Label>
         <select
           id="userConsumptionInterest"
           // multiple
@@ -339,9 +325,9 @@ const EditProfile = () => {
           <option value="7">패션/미용</option>
           <option value="8">기타</option>
         </select>
-      </row>
-      <row>
-        <label>관심 금융분야:</label>
+      </Row>
+      <Row>
+        <Label>관심 금융분야:</Label>
         <select
           id="userFinancialInterest"
           defaultValue={financeCat}
@@ -359,10 +345,10 @@ const EditProfile = () => {
           <option value="7">생활경제</option>
           <option value="8">경제 일반</option>
         </select>
-      </row>
-      <row>
-        <label>월급</label>
-        <input
+      </Row>
+      <Row>
+        <Label>월급</Label>
+        <Input
           type="number"
           //name="finance"
           defaultValue={salary}
@@ -370,10 +356,10 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
-      <row>
-        <label>목표 절약 금액</label>
-        <input
+      </Row>
+      <Row>
+        <Label>목표 절약 금액</Label>
+        <Input
           type="number"
           //name="finance"
           defaultValue={saving}
@@ -381,22 +367,22 @@ const EditProfile = () => {
           disabled={!editing}
           required
         />
-      </row>
+      </Row>
       {!editing && (
         <Button onClick={handleEditButtonClick}>수정하기</Button>
       )}
       {editing && (
         <>
-          <label>
+          <Label>
             비밀번호 확인:
-            <input
+            <Input
               type="password"
-              //name="confirmPassword"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
               required
+              style={{ width : "90%"}}
             />
-          </label>
+          </Label>
           <br></br>
           {confirmPassword.length > 0 && (
             <span className={`message ${isConfirmPassword ? 'success' : 'error'}`}>{confirmPasswordMessage}</span>

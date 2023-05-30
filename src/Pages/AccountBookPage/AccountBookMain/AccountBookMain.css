@@ -1,10 +1,10 @@
-.account_book_main_container {
+  .account_book_main_container {
     display: flex;
     align-items: center;
   }
+
   .left_side_container {
     width: 30%;
-
   }
   
   .right_side_container {

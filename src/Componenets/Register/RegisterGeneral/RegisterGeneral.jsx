@@ -154,7 +154,7 @@ const RegisterGeneral = ({ }) => {
   };
 
   return (
-    <div className="container">
+    <div className="signup-container">
       <form onSubmit={handleSubmit} className="signup-form" action="/">
         <h2>일반회원 회원가입</h2>
         <div className="registerGeneral-form-group">

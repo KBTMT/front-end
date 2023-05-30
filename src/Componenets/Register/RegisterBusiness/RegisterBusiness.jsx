@@ -242,7 +242,7 @@ const RegisterBusiness = () => {
 
   return (
 
-    <div className="container">
+    <div className="business-container">
       <form onSubmit={handleSubmit} className="signup-form" action="/">
         <h2>사업자 회원가입</h2>
         <div className="registerBusiness-form-group">

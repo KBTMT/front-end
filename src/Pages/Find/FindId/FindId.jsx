@@ -13,34 +13,43 @@ const Container = styled.div`
 const FindIdForm = styled.div`
   width: 500px;
   padding: 20px;
-  background-color: #e5ecf6;
+  background-color: #c9f4e2ba;
   border-radius: 8px;
 `;
 
 const FormGroup = styled.div`
   margin-bottom: 20px;
+  display : flex;
+  align-items: center;
+
 `;
 
 const Label = styled.label`
   margin-bottom: 8px;
+  margin: 0 auto;
+
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 50%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin: 0 auto;
+
 `;
 
 const FindUserIdBtn = styled.button`
   display: block;
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  
 `;
 
 const FoundUserIdResult = styled.div`

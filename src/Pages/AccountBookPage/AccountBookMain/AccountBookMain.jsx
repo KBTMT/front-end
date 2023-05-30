@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Accountbook from '../../../Componenets/AccountBook/Accountbook';
-import TargetCompare from '../../../Componenets/Graph/TargetCompare/TargetCompare';
+import TargetCompare2 from '../../../Componenets/Graph/TargetCompare/TargetCompare2';
 import './AccountBookMain.css';
 
 const AccountBookMain = () => {
@@ -25,7 +25,10 @@ const AccountBookMain = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:8899/generalmypage/generalMyFinance', {
-        params: { generalId: user.generalId, saving: user.saving }
+        params: { 
+          generalId: user.generalId, 
+          saving: user.saving 
+        }
       });
       setSumConsume(response.data.sumConsumption[0].TOTAL_PRICE);
       setSumIncome(response.data.sumIncome[0].TOTAL_PRICE);
@@ -40,7 +43,7 @@ const AccountBookMain = () => {
       <TopImage src={require('../../../img/tickle_write_bar.png')} />
       <Container>
         <LeftSide>
-          <TargetCompare data={[sumIncome, sumConsume, targetSaving]} />
+          <TargetCompare2 data={[sumIncome, sumConsume, targetSaving]} />
         </LeftSide>
         <RightSide>
           <Accountbook />

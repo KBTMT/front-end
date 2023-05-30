@@ -7,7 +7,10 @@ const Financialnews = () => {
   const [newsList, setNewsList] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:8899/finance')
-      .then(response => setNewsList(response.data))
+      .then(response => {
+        setNewsList(response.data)
+        console.log(newsList);
+      })
       .catch(error => console.log(error))
   }, []);
 

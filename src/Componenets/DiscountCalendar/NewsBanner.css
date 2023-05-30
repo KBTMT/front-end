@@ -3,12 +3,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px; /* 적절한 높이로 설정해주세요 */
+    height: 300px;
   }
   
   .slider {
     display: flex;
     overflow: hidden;
+
   }
   
   .slide {

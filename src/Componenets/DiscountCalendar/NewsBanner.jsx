@@ -43,8 +43,8 @@ const NewsBanner = () => {
                 <div className="slider-container">
                     <div className="slider">
                         <div className="slide active">
-                            <h2 className="keyword">{currentNews.financialKeyword}</h2>
-                            <p className="newsContent">{category[currentNews.financeCat]}</p>
+                            <p className="keyword" style={{ paddingBottom : "10px", width : "80%"}}>{currentNews.financialKeyword}</p>
+                            <p className="newsContent" style={{paddingBottom : "20px"}}>{category[currentNews.financeCat]}</p>
                         </div>
                     </div>
                     <button className="finance-slider-button prev" onClick={handlePrevSlide}>

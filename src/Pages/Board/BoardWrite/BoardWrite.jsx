@@ -1,12 +1,10 @@
 import React, { useEffect,useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const WriteContainer = styled.div`
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 40px;
-  background-color: #E5ECF6;
+  max-width: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,11 +13,11 @@ const WriteContainer = styled.div`
 `;
 
 const FormContainer = styled.div`
-width: 1000px;
-height: auto;
-background-color: #ffffff;
-padding: 20px;
-border-radius: 10px;
+  width: 1000px;
+  height: auto;
+  background-color: #c9f4e2ba;
+  padding: 40px;
+  border-radius: 10px;
 `;
 
 const Title = styled.h2`
@@ -53,7 +51,7 @@ const TextArea = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 4px;
   /* 추가한 스타일 */
-  height: 500px; /* 원하는 높이로 조절 */
+  height: 200px; /* 원하는 높이로 조절 */
 `;
 
 const Button = styled.button`
@@ -84,6 +82,7 @@ const BoardWrite = () => {
   const [title, setTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
   const [image, setImage] = useState(null);
+const navigate = useNavigate();
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -107,8 +106,7 @@ const BoardWrite = () => {
     if (userFromSession) {
       setUser(userFromSession);
       setGeneralId(userFromSession.generalId);
-      setUserNickname(userFromSession.setUserNickname);
-
+      setUserNickname(userFromSession.userNickname);
     }
   }, []);
 
@@ -116,7 +114,6 @@ const BoardWrite = () => {
   //     fetchData();
   //   }, [user]);
   
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setTitle("");
@@ -126,6 +123,7 @@ const BoardWrite = () => {
       .post("http://localhost:8899/board/register", { title, boardContent, generalId, userNickname  })
       .then((response) => {
         console.log(response);
+        navigate('/boardMain');
       })
       .catch((error) => {
         console.error(error);
@@ -133,45 +131,50 @@ const BoardWrite = () => {
   };
 
   return (
-    <WriteContainer>
-      <FormContainer>
-        <form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Input
-              type="text"
-              id="title"
-              placeholder="제목을 입력해주세요!"
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <TextArea
-              id="boardContent"
-              placeholder="내용을 입력해주세요!"
-              value={boardContent}
-              onChange={handleContentChange}
-            ></TextArea>
-          </FormGroup>
-          <FormGroup>
-            <Input
-              type="file"
-              id="image"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-            {image && (
-              <Preview>
-                <img src={image} alt="이미지 미리보기" />
-              </Preview>
-            )}
-          </FormGroup>
-          <ButtonContainer>
-            <Button type="submit">글 등록</Button>
-          </ButtonContainer>
-        </form>
-      </FormContainer>
-    </WriteContainer>
+    <div>
+      <img src={require('../../../img/tickle_board_bar.png')} style={{ width: "700px" }} />
+        <WriteContainer>
+          <FormContainer>
+            <form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="title"
+                  placeholder="제목을 입력해주세요!"
+                  value={title}
+                  onChange={handleTitleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <TextArea
+                  id="boardContent"
+                  placeholder="내용을 입력해주세요!"
+                  value={boardContent}
+                  onChange={handleContentChange}
+                ></TextArea>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                {image && (
+                  <Preview>
+                    <img src={image} alt="이미지 미리보기" />
+                  </Preview>
+                )}
+              </FormGroup>
+              <ButtonContainer>
+                <Button type="submit">글 등록</Button>
+              </ButtonContainer>
+            </form>
+          </FormContainer>
+        </WriteContainer>
+
+    </div>
+    
   );
 };
 

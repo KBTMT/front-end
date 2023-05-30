@@ -23,7 +23,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 30px;
-  width : 1400px;
+  width : 1200px;
 `;
 
 const StyledButton = styled.button`
@@ -421,7 +421,7 @@ const AccountBookDaily = () => {
                         <div className="Memo-modal-content" style={{ height: "70%" }}>
                             <textarea
                                 value={newMemo}
-                                style={{ height: "100%", width: "80%" }}
+                                style={{ height: "100%", width: "80%", marginTop:"20px", border : "solid 1px" }}
                                 onChange={(e) => setNewMemo(e.target.value)}
                                 placeholder="메모를 작성하세요 😊"
                             />
@@ -437,50 +437,49 @@ const AccountBookDaily = () => {
                 {/* 이 부분은 클릭 시 수정화면이 뜨는 부분 */}
                 {showEditModal && (
                     <div className='modal' style={{ height: '50%', width: '50%' }}>
-                        <div className="Edit-modal-content" style={{ height: '90%' }}>
-
+                        <div className="Edit-modal-content" style={{ height: '90%', marginTop : '20px'}}>
                             {selectedItem && (
-                                <form onSubmit={handleSaveEdit}>
-                                    <div>
+                                <form onSubmit={handleSaveEdit} style={{ marginTop : '20px'}}>
+                                    <div style={{ marginTop : '10px'}}>
                                         <label> category :</label>
                                         <span>{getTextByconsumptionCat(selectedItem.consumptionCat)}</span>
                                     </div>
-                                    <div>
-                                        <label> 내역: </label>
+                                    <div style={{ marginTop : '15px'}}>
+                                        <label style={{ marginRight : '10px'}}> 내역: </label>
                                         <input
                                             name="content"
                                             defaultValue={selectedItem.accountContent} />
                                         {/* <span> {selectedItem.accountContent} </span> */}
                                     </div>
-                                    <div>
-                                        <label> 금액 : </label>
+                                    <div style={{ marginTop : '15px'}}>
+                                        <label style={{ marginRight : '10px'}}> 금액 : </label>
                                         <input
                                             id="price"
                                             defaultValue={selectedItem.price} />
                                         {/* <span> {selectedItem.price} </span> */}
                                     </div>
-                                    <div>
-                                        <label> 사용 시간 : </label>
+                                    <div style={{ marginTop : '15px'}}>
+                                        <label style={{ marginRight : '10px'}}> 사용 시간 : </label>
                                         <input
                                             name="time"
                                             defaultValue={selectedItem.time} />
                                         {/* <span> {selectedItem.time} </span> */}
                                     </div>
-                                    <div>
-                                        <label> 메모 : </label>
+                                    <div style={{ marginTop : '15px'}}>
+                                        <label style={{ marginRight : '10px'}}> 메모 : </label>
                                         <input
                                             name="memo"
                                             defaultValue={selectedItem.memo} />
                                         {/* <span> {selectedItem.memo} </span> */}
                                     </div>
-                                    <div>
-                                        <label> EMOJI : </label>
+                                    <div style={{ marginTop : '15px'}}>
+                                        <label style={{ marginRight : '10px'}}> EMOJI : </label>
                                         <input
                                             name="emoji"
                                             defaultValue={selectedItem.emoji} />
                                         {/* <span> {selectedItem.time} </span> */}
                                     </div>
-                                    <div>
+                                    <div style={{ marginTop : '15px'}}>
                                         <SaveButton type='submit'>저장</SaveButton>
                                         <CloseButton onClick={handleCloseEditModal}>취소</CloseButton>
                                     </div>

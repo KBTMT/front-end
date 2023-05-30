@@ -71,7 +71,7 @@ const BoardPost = () => {
   const [commentContent, setCommentContent] = useState("");
   const params = useParams();
   const boardSeq = params.boardSeq;
-  const nowUserNickname = JSON.parse(sessionStorage.getItem('vo')).userNickname
+  const nowUserNickname = JSON.parse(sessionStorage.getItem('vo')).userNickname;
   const [flag, setFlag] = useState(false)
 
 
@@ -148,7 +148,11 @@ const BoardPost = () => {
 
   useEffect(() => {
     axios.get(`http://localhost:8899/board/detail/${boardSeq}`)
-      .then(response => setPost(response.data), console.log("a"))
+      .then(response => {
+        setPost(response.data);
+        console.log(response.data);
+      }
+        )
       .catch(error => console.log(error));
 
     axios.get(`http://localhost:8899/board/detail/comment/${boardSeq}`)
@@ -175,8 +179,8 @@ const BoardPost = () => {
           }
         </div>
         <ButtonContainer>
-          <Button onClick={handleEdit}>수정하기</Button>
-          <Button onClick={handleDelete}>삭제하기</Button>
+          <Button onClick={handleEdit} style={{ width : "100px", backgroundColor: "#66d3a8ba"}} >수정하기</Button>
+          <Button onClick={handleDelete} style={{ width : "100px", backgroundColor: "#66d3a8ba"}}>삭제하기</Button>
 
         </ButtonContainer>
         <hr style={{ opacity: 0.2 }} ></hr>
@@ -201,7 +205,7 @@ const BoardPost = () => {
               )} */}
             </CommentContainer>
           ))}
-          <div style={{ display: 'block' }}>
+          <div style={{ display: 'flex' }}>
             <Input
               type="text"
               id="comments"
@@ -209,7 +213,7 @@ const BoardPost = () => {
               value={commentContent}
               onChange={handleCommentChange}
             />
-            <Button onClick={handleCommentSubmit}>댓글 작성</Button>
+            <Button onClick={handleCommentSubmit} style={{ width : "100px", backgroundColor: "#66d3a8ba"}}>댓글 작성</Button>
           </div>
         </div>
       </div>

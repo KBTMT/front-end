@@ -73,11 +73,15 @@ const AccountCalendar = () => {
         style={{ backgroundColor: categoryColors[eventInfo.event.extendedProps.category] }}
       >
         {eventInfo.event.extendedProps.imageUrl && (
-          <img
-            src={eventInfo.event.extendedProps.imageUrl}
-            alt="Event"
-            className="event-image"
-          />
+          (eventInfo.event.extendedProps.calLike >=10 ?
+            (<img src={require("../../img/goldTickle.png")} style={{ height: '30px' }} />
+          ):(
+            (eventInfo.event.extendedProps.calLike >=5 ?(
+              <img src={require("../../img/silverTickle.png")} style={{ height: '30px' }} />
+            ):(
+              <img src={require("../../img/bronzeTickle.png")} style={{ height: '30px' }} />
+            ))
+          ))
         )}
         <div className="event-details">
           <div className="event-title">{eventInfo.event.title}</div>
@@ -458,13 +462,13 @@ const categoryColors = {
                   <div className='reviewContent'>
                     <div className='scoreImage'>
                     {r.score === 1 && (
-                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                      <img src={require("../../img/score1.png")} style={{ height: '30px' }} />
                     )}
                     {r.score === 2 && (
-                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                      <img src={require("../../img/score2.png")} style={{ height: '30px' }} />
                     )}
                     {r.score === 3 && (
-                      <img src={require("../../img/cal.png")} style={{ height: '30px' }} />
+                      <img src={require("../../img/score3.png")} style={{ height: '30px' }} />
                     )}
                     </div>
                     {r.generalId}님   

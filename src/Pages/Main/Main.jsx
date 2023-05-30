@@ -36,16 +36,18 @@ const Main = () => {
     <Wrapper>
       <Img src={require('../../img/tickle_info_bar.png')} />
       <ContentWrapper>
-        <TickleWrapper>
-            <Tickle>
-                {myTickleNum === 0 && <img src={require("../../img/tickle1.png")} style={{ width : "200px"}} alt="Image 1" />}
-                {myTickleNum === 1 && <img src={require("../../img/tickle2.png")} style={{ width : "200px"}} alt="Image 2" />}
-                {myTickleNum === 2 && <img src={require("../../img/tickle3.png")} style={{ width : "200px"}} alt="Image 3" />}
-                {myTickleNum === 3 && <img src={require("../../img/tickle4.png")} style={{ width : "200px"}} alt="Image 4" />}
-                {myTickleNum >= 4 && <img src={require("../../img/tickle5.png")} style={{ width : "200px"}} alt="Image 5" />}   
-            </Tickle>
-        </TickleWrapper>
-        <NewsBanner></NewsBanner>
+        <RightWrapper>
+          <TickleWrapper>
+              <Tickle>
+                  {myTickleNum === 0 && <img src={require("../../img/tickle1.png")} style={{ width : "200px"}} alt="Image 1" />}
+                  {myTickleNum === 1 && <img src={require("../../img/tickle2.png")} style={{ width : "200px"}} alt="Image 2" />}
+                  {myTickleNum === 2 && <img src={require("../../img/tickle3.png")} style={{ width : "200px"}} alt="Image 3" />}
+                  {myTickleNum === 3 && <img src={require("../../img/tickle4.png")} style={{ width : "200px"}} alt="Image 4" />}
+                  {myTickleNum >= 4 && <img src={require("../../img/tickle5.png")} style={{ width : "200px"}} alt="Image 5" />}   
+              </Tickle>
+          </TickleWrapper>
+          <NewsBanner></NewsBanner>
+        </RightWrapper>
         <CalendarWrapper>
             <DiscountCalendar />
         </CalendarWrapper>
@@ -93,4 +95,9 @@ const Tickle = styled.h2`
     width : 200px;
 `;
 
+const RightWrapper = styled.div`
+  display : flex;
+  flex-direction : column;
+  padding-right : 30px;
+`
 export default Main;

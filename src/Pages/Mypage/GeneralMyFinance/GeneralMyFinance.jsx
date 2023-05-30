@@ -3,7 +3,12 @@ import axios from 'axios';
 import StatByCategory from '../../../Componenets/Graph/StatByCategory/StatByCategory';
 import LineGraph  from '../../../Componenets/Graph/LineGraph/LineGraph';
 import TargetCompare  from '../../../Componenets/Graph/TargetCompare/TargetCompare';
- 
+import styled from 'styled-components';
+
+const Img = styled.img`
+  width: 600px;
+  margin-top: 20px;
+`;
 
 const GeneralMyFinance = () => {
     const [sumConsume, setSumConsume] = useState(0);
@@ -45,12 +50,19 @@ const GeneralMyFinance = () => {
     }
   };
     return (
-        <div>
-            <h2>내 소비 분석</h2>
-            <StatByCategory data = {analysisByCat}/>
-            <LineGraph data = {analysisByHour}/>
-            <TargetCompare data = {[sumIncome, sumConsume, targetSaving]}/>
+      <div>
+        <Img src={require('../../../img/my_financial.png')} />
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1}}>
+          <StatByCategory data={analysisByCat} />
         </div>
+        <div style={{ flex: 1 }}>
+          <TargetCompare data={[sumIncome, sumConsume, targetSaving]} />
+        </div>
+      </div>
+      <LineGraph data={analysisByHour} />
+    </div>
+    
     );
 };
 

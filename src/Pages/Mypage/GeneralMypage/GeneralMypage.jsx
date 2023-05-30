@@ -4,6 +4,7 @@ import Profile from '../../../Componenets/Profile/Profile';
 import GeneralMyInfo from '../../../Componenets/MyInfo/GeneralMyInfo/GeneralMyInfo';
 import styled from 'styled-components';
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ const GeneralMypage = () => {
   const sessionData = JSON.parse(sessionStorage.getItem('vo'));
   const [data, setData] = useState(false);
   const [generalId, setGeneralId] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (sessionData) {
@@ -48,7 +50,9 @@ const GeneralMypage = () => {
         })
         .catch(error => {
           console.error(error);
-        });
+        })
+    }else{
+      navigate("/login")
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -80,11 +84,7 @@ const GeneralMypage = () => {
       'https://testapi.openbanking.or.kr/oauth/2.0/authorize?response_type=code&client_id=27cbcd6b-8cdc-4499-a076-d058c4132ce7&redirect_uri=http://localhost:3000/generalMypage&scope=login inquiry transfer&state=23323452345398798793453454390233&auth_type=0';
   };
 
-  useEffect(() => {
-    if (!sessionData) {
-      alert("로그인 후 이용하실 수 있습니다.");
-    }
-  }, [sessionData]);
+ 
 
   return (
     <div>
@@ -103,7 +103,7 @@ const GeneralMypage = () => {
           </RightContainer>
         </Container>
       ) : (
-        null
+       <h2></h2> 
       )}
     </div>
   );

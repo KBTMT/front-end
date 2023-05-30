@@ -1,0 +1,56 @@
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* 적절한 높이로 설정해주세요 */
+  }
+  
+  .slider {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .slide {
+    position: relative;
+    flex: 0 0 100%;
+    padding: 20px;
+    transition: transform 0.5s ease;
+    opacity: 0.7;
+  }
+  
+  .slide.active {
+    opacity: 1;
+  }
+  
+  .finance-slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .slide.active .keyword {
+    z-index: 1;
+    color: #000;
+  }
+  
+  .slide.active .newsContent {
+    z-index: 1;
+    color: #000;
+  }
+  
+  .prev {
+    left: 20px;
+  }
+  
+  .next {
+    right: 20px;
+  }
+  

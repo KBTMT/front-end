@@ -2,7 +2,7 @@ import React , { useState, useEffect } from 'react';
 import DiscountCalendar from "../../Componenets/DiscountCalendar/DiscountCalendar"
 import styled from 'styled-components';
 import axios from 'axios';
-
+import NewsBanner from '../../Componenets/DiscountCalendar/NewsBanner';
 
 const Main = () => {
 
@@ -45,6 +45,7 @@ const Main = () => {
                 {myTickleNum >= 4 && <img src={require("../../img/tickle5.png")} style={{ width : "200px"}} alt="Image 5" />}   
             </Tickle>
         </TickleWrapper>
+        <NewsBanner></NewsBanner>
         <CalendarWrapper>
             <DiscountCalendar />
         </CalendarWrapper>

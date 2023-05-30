@@ -1,7 +1,7 @@
-.container {
+.boardmain-container {
   max-width: 1500px;
   margin: 0;
-  /* padding: 20px 200px 40px 200px; */
+  padding: 20px 200px 40px 200px;
   display: flex;
   flex-direction: column;
   height: auto;
@@ -14,7 +14,8 @@ h2 {
 .board-section {
   background-color: #E5ECF6;
   height: 80%;
-  width: 70vw; /* 내가 보는 창 기준 80% 의미 */
+  width: 70vw;
+  /* 내가 보는 창 기준 80% 의미 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,10 +23,29 @@ h2 {
   border-radius: 10px;
 }
 
+.board-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.board-td{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.board-th{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
 .board-admin {
   background-color: #e5ecf6;
   height: 70px;
-  width: 70vw; /* 내가 보는 창 기준 80% 의미 */
+  width: 70vw;
+  /* 내가 보는 창 기준 80% 의미 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,15 +55,19 @@ h2 {
 .search-bar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 10px;
+  margin-top : 20px;
   /* background-color: blue; */
 }
 
 .search-bar input[type="text"] {
+  margin-left: 10px;
   padding: 8px;
   width: 200px;
   margin-right: 10px;
+  border-radius: 5px;
+  border : 0.5px solid;
 }
 
 .search-bar select {
@@ -61,7 +85,7 @@ h2 {
 }
 
 .pagination {
-  display: flex;
+  display: inline;
   justify-content: center;
   margin-top: 20px;
 }
@@ -69,20 +93,30 @@ h2 {
 .pagination button {
   margin: 0 5px;
   padding: 5px 10px;
-  background-color: #f1f1f1;
+  background-color: #66d3a8ba;
   border: none;
   cursor: pointer;
 }
 
 .pagination button.active {
-  background-color: #e5ecf6;
+  background-color: #66d3a8ba;
 }
 
-.board-top {
-  display: flex;
+/* .board-top {
+
   flex-direction: row;
   justify-content: flex-end;
-  align-items: end;
-  width: 95%;
-  padding-top : 10px;
+  align-items: right;
+  float: right;
+  width: 70%;
+  padding-top: 10px;
+  margin-bottom: 30px;
+  font-size: 20px;
+} */
+
+.boardwrite-btn{
+  margin-bottom: 20px;
+  background-color : #66d3a8ba;
+  border-radius: 5px;
+  color : white;
 }

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./RegisterBusiness.css";
 import axios from 'axios';
 import DaumPostCode from 'react-daum-postcode'
+import DaumPostcode from "react-daum-postcode";
+
+import { Modal, Button } from 'antd';
 
 const RegisterBusiness = () => {
   const [generalId, setGeneralId] = useState("");
@@ -154,20 +157,34 @@ const RegisterBusiness = () => {
 
 
   // 구현해야 될 부분들,,,
-  const handleBusinessNumberCheck = () => { };
+  const handleBusinessNumberCheck = async () => {
 
-//   const handleBusinessAddressSearch = () => {
-//     new daum.Postcode({
-//       oncomplete: function (data) {
-//         document.getElementsByName("address")[0].value = data.sido;
-//         document.getElementsByName("address")[1].value = data.sigungu;
-//         document.getElementsByName("address")[2].value = data.bname;
-//         document.getElementById("addr").value = data.sido + " " + data.sigungu + " " + data.bname;
-//       }
-//     }).open();
-//   }
-
-
+    const data = {
+      "b_no": [`${businessNum}`]
+    };
+    
+    try {
+      const response = await fetch("https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=fP%2FFXjOJCBGFYTZKn7f0cZTkXIlqQwx3Ew7ihvKBiOSjmVw5LdhOhiD6HNfxpczoNZIG22JyGgkQ4VmaHXap3g%3D%3D", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        const test = result.data[0].tax_type
+        alert(test)
+      } else {
+        const error = await response.text();
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+      };
 
 
   const handleSubmit = (e) => {
@@ -224,20 +241,43 @@ const RegisterBusiness = () => {
       });
    };
 
-   const handleLocationFind = {
-    // Button click event
-    clickButton: () => {
-        setOpenPostcode((current) => !current);
-    },
+  //  const handleLocationFind = {
+  //   // Button click event
 
-    // Address selection event
-    selectAddress: (data) => {
-        console.log(`
-            주소: ${data.address},
-            우편번호: ${data.zonecode}
-        `);
-        setOpenPostcode(false);
-    },
+  //   clickButton: () => {
+  //     setOpenPostcode((current) => !current);
+  //   },
+
+  //   // Address selection event
+  //   selectAddress: (data) => {
+  //     console.log(`
+  //           주소: ${data.address},
+  //           우편번호: ${data.zonecode}
+  //       `);
+  //     setLocation(data.address)
+  //     setOpenPostcode(false);
+  //   }
+
+
+  // };
+
+  // const handleOpenPostcode = () => {
+  //   setOpenPostcode(true);
+  // };
+
+  const [isOpenPost, setIsOpenPost] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleComplete = (data) => {
+    console.log(data);
+    setLocation(data.address)
+    onToggleModal(); // 주소창은 자동으로 사라지므로 모달만 꺼주면 된다.
   };
 
   return (
@@ -468,24 +508,53 @@ const RegisterBusiness = () => {
         <div className="registerBusiness-form-group">
           <label className="registerBusiness-label" htmlFor="businessAddress">주소</label>
           <input
-            type="text"
-            id="businessAddress"
-            value={location}
-            onChange={handleLocationChange}
-            required
+          type="text"
+          id="location"
+          value={location}
+          //onChange={handleTradeNameChange}
+          required
+            // type="text"
+            // id="businessAddress"
+            // value={location}
+            // onChange={handleLocationChange}
+            // required
             className="registerBusiness-input"
+            readOnly
           />
           {/* <button type="button" onClick={handleBusinessAddressSearch}> */}
-          <button onClick={handleLocationFind.clickButton} className="registerBusiness-submit">
-            찾기
+          <button 
+           type="button"
+           className="registerBusiness-submit"
+          //  onClick={handleOpenPostcode}
+          onClick={onToggleModal}
+          >
+            주소 검색
           </button>
-          {openPostcode && (
-            <DaumPostCode 
-              style={ { width : '500px'}}
-              onComplete = {handleLocationFind.selectAddress}
-              autoClose = {false}
+          {isOpen && (
+        <Modal
+          open={true}
+          onOk={onToggleModal}
+          onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+        >
+          <DaumPostcode onComplete={handleComplete} />
+        </Modal>
+      )}
+          {/* {openPostcode && (
+            <DaumPostCode
+              onComplete={handleLocationFind.selectAddress}
+              autoClose={false}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                width: '40%',
+                height: '70%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 9999,
+                padding: '20px'
+              }}
             />
-          )}
+          )} */}
         </div>
         <button className="registerBusiness-submit-btn" type="submit" disabled={!(isConfirmPassword)}> 회원가입 </button>
       </form>

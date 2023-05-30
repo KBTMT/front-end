@@ -1,4 +1,4 @@
-.reported-container {
+  .reported-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +63,8 @@
   }
   
   .pagination button.active {
-    background-color: #e5ecf6;
+    background-color: #c9f4e2ba;
+    
   }
   .reported-button {
     padding: 10px 20px;

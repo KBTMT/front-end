@@ -58,7 +58,7 @@ const Sidebar = ({children}) => {
         },
         {
             path:"/boardMain",
-            name:"게시판",
+            name:"티끌광장",
             icon: <img src={require('../../img/tickle_board.png')} style={ {width : "50px"}} />
         },
         {
@@ -73,6 +73,7 @@ const Sidebar = ({children}) => {
         },
         
     ]
+
 
     const menuItemAdmin = [
         {

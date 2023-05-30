@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import 'remixicon/fonts/remixicon.css'
 import { isDateSpansEqual } from '@fullcalendar/core/internal';
 import Select from 'react-dropdown-select';
+import { useNavigate } from 'react-router-dom';
+
+
+
 const UpdateButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -398,6 +402,16 @@ const categoryColors = {
       setSelectedEvents(filteredEvents);
     }
   }, [selectedCategory, events]);
+
+
+  const navigate = useNavigate();
+
+  const handleBoardBtnClick = () => {
+    navigate('/boardMain',{state : { search :  {brand} }});
+
+  };
+
+  
   return (
     <div className="App" style={{ padding : "50px", borderRadius : "10px", backgroundColor : "white", boxShadow : "5px 5px 5px rgb(216, 216, 216)" }}>
       <Select 
@@ -475,6 +489,9 @@ const categoryColors = {
                   </button>
                 </div>
                 </form>
+                <button className='form-button' onClick={handleBoardBtnClick}>
+                    관련 글 보기
+                </button>
               </div>
             </div>
             </div>

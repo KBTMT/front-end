@@ -60,7 +60,7 @@ const Wrapper = styled.div`
 `;
 
 const Img = styled.img`
-  width: 600px;
+  width: 500px;
   margin-top: 20px;
 `;
 

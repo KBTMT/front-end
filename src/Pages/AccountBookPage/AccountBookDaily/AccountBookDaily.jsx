@@ -6,6 +6,24 @@ import './AccountBookDaily.css'
 import MiniAccountbook from '../../../Componenets/MiniAccountBook/MiniAccountBook';
 import Select from 'react-dropdown-select';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 500px;
+  margin-top: 20px;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  width : 1000px;
+`;
+
 const StyledButton = styled.button`
   background-color: #f5f5f5;
   color: #333;
@@ -143,28 +161,28 @@ const AccountBookDaily = () => {
             element = <img src={require("../../../img/piggy-bank.png")} style={{ width : '50px'}}/>;
             break;
         case 1:
-            element = <img src={require("../../../img/pizza.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/dish.png")} style={{ width : '50px'}}/>;            
             break;
         case 2:
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/house-cleaning.png")} style={{ width : '50px'}}/>;            
             break;
         case 3:
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/school-bus.png")} style={{ width : '50px'}}/>;            
             break;
         case 4 :
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/revitalizing.png")} style={{ width : '50px'}}/>;            
             break;
         case 5 :
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/clean-house.png")} style={{ width : '50px'}}/>;            
             break;
         case 6 :
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/cinema.png")} style={{ width : '50px'}}/>;            
             break;
         case 7 :
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;            
+            element = <img src={require("../../../img/clothes.png")} style={{ width : '50px'}}/>;            
             break;
         case 8 :
-            element = <img src={require("../../../img/news.png")} style={{ width : '50px'}}/>;             
+            element = <img src={require("../../../img/flying-money.png")} style={{ width : '50px'}}/>;             
             break;
 
         default :
@@ -246,11 +264,13 @@ const AccountBookDaily = () => {
     }
 
     return (
-        <div className='accountBook-daily-container'>
-            <div className = 'accountBook-daily-calendar' style={{ float : "left", width : "450px"}}>
+            <Wrapper>
+                <Img src={require('../../../img/tickle_write_bar.png')} style={{ width : "500px" }}/>
+                <ContentWrapper>
+                <div className = 'accountBook-daily-calendar' style={{ float : "left", width :"70%"}}>
                 <MiniAccountbook />
-            </div>
-            <div className='accountBook-daily' style={{ float : "left", width :"40%", margin : "10px"}}>
+                </div>
+            <div className='accountBook-daily' style={{ float : "left", width :"60%", margin : "10px"}}>
             {data.map((item, index)=>(
                 <table 
                 key={index} 
@@ -324,32 +344,26 @@ const AccountBookDaily = () => {
                             <div>
                                 <label> 내역: </label>
                                 <input defaultValue={selectedItem.accountContent} />
-                                {/* <span> {selectedItem.accountContent} </span> */}
                             </div>
                             <div>
                                 <label> 금액 : </label>
                                 <input defaultValue={selectedItem.price} />
-                                {/* <span> {selectedItem.price} </span> */}
                             </div>
                             <div>
                                 <label> 사용처 : </label>
                                 <input defaultValue={selectedItem.accountContent} />
-                                {/* <span> {selectedItem.accountContent} </span> */}
                             </div>
                             <div>
                                 <label> 사용 시간 : </label>
                                 <input defaultValue={selectedItem.time} />
-                                {/* <span> {selectedItem.time} </span> */}
                             </div>
                             <div>
                                 <label> 메모 : </label>
                                 <input defaultValue={selectedItem.memo} />
-                                {/* <span> {selectedItem.memo} </span> */}
                             </div>
                             <div>
                                 <label> EMOJI : </label>
                                 <input defaultValue={selectedItem.emoji} />
-                                {/* <span> {selectedItem.time} </span> */}
                             </div>
                             <div>
                             <SaveButton onClick={handleSaveEdit}>저장</SaveButton>
@@ -363,7 +377,9 @@ const AccountBookDaily = () => {
                 </div>
             )}
         </div>
-    </div>    
+                </ContentWrapper>
+            
+    </Wrapper>
     );
 };
 

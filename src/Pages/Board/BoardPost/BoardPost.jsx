@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import "./BoardPost.css"
 import ReplyForm from "../../../Componenets/Board/BoardReply";
 
-
-
 const Title = styled.h2`
   display: flex;
   align-items: left;

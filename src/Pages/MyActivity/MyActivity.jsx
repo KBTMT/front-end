@@ -7,15 +7,15 @@ import Select from 'react-dropdown-select';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 const Container = styled.div`
-  width: 1500px;
-  margin: 30px auto;
-  padding: 40px;
-  background-color: #E5ECF6;
+  width: 700px;
+  margin: 200px auto;
+  padding: 20px;
+  background-color: #c9f4e2ba;
   display: flex;
   justify-content: center;
   align-items: center;
   height: auto;
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 
 const MyContainer = styled.div`
@@ -193,15 +193,16 @@ const handleModalReviewSubmit = () => {
       <MyContainer>
         <Heading>내 활동</Heading>
         <div>
-          <SubHeading>내가 찜한 티끌</SubHeading>
+          <SubHeading>내가 찜한 티끌<img src={require("../../img/tickle.png")} style = {{width : "25px"}} /></SubHeading>
           <List>
           {mypickList.filter(mypick => mypick !== null).map(mypick => (
             <ListItem key={mypick.discountSeq} onClick={() => openModal(mypick)}>{mypick.brand} : {mypick.discountContent}</ListItem>
           ))}
           </List>
         </div>
+        <hr></hr>
         <div>
-          <SubHeading>내가 쓴 글</SubHeading>
+          <SubHeading>내가 쓴 글<img src={require("../../img/write_t.png")} style = {{width : "25px"}} /></SubHeading>
           <List>
             {boardList.map(board => (
               <Link to={`/board/boardpost/${board.boardSeq}`}>

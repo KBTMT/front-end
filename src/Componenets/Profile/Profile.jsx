@@ -50,7 +50,7 @@ const Profile = ({ name, profileImage }) => {
       <ProfileImage src={"https://www.svgrepo.com/show/492683/avatar-girl.svg"} alt="Profile Image" />
       <Greeting>{`${name}님 환영합니다.`}</Greeting>
       <ButtonContainer>
-        <Link to="/generalmypage/myboard">
+        <Link to="/generalmypage/myactivity">
           <Button>내 활동</Button>
         </Link>
         <Link to="/generalmypage/myfinance">

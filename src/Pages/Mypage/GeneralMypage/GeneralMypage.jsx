@@ -3,6 +3,7 @@ import axios from 'axios';
 import Profile from '../../../Componenets/Profile/Profile';
 import GeneralMyInfo from '../../../Componenets/MyInfo/GeneralMyInfo/GeneralMyInfo';
 import styled from 'styled-components';
+import Swal from "sweetalert2";
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +80,12 @@ const GeneralMypage = () => {
       'https://testapi.openbanking.or.kr/oauth/2.0/authorize?response_type=code&client_id=27cbcd6b-8cdc-4499-a076-d058c4132ce7&redirect_uri=http://localhost:3000/generalMypage&scope=login inquiry transfer&state=23323452345398798793453454390233&auth_type=0';
   };
 
+  useEffect(() => {
+    if (!sessionData) {
+      alert("로그인 후 이용하실 수 있습니다.");
+    }
+  }, [sessionData]);
+
   return (
     <div>
       {sessionData ? (
@@ -93,11 +100,10 @@ const GeneralMypage = () => {
           </LeftContainer>
           <RightContainer>
             <GeneralMyInfo />
-            
           </RightContainer>
         </Container>
       ) : (
-        alert("로그인 후 이용하실 수 있습니다.")
+        null
       )}
     </div>
   );

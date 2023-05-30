@@ -47,11 +47,6 @@ const GeneralMyFinance = () => {
     return (
         <div>
             <h2>내 소비 분석</h2>
-            {/* <li>이번달 소비 총 소비 금액(total price) : {sumConsume}</li>
-            <li>이번달 소비 총 수입 금액(total price) : {sumIncome}</li>
-            <li>최대 소비 카테고리 : {maxCat[1]}</li>
-            <li>최대 소비 카테고리  금액: {maxCat[0]}</li>
-     */}
             <StatByCategory data = {analysisByCat}/>
             <LineGraph data = {analysisByHour}/>
             <TargetCompare data = {[sumIncome, sumConsume, targetSaving]}/>
